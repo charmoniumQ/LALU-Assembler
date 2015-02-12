@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.heraclitus.compiler.error.LabelUndefined;
 import me.heraclitus.compiler.errors.AddressExpected;
 import me.heraclitus.compiler.errors.AddressIncorrect;
 import me.heraclitus.compiler.errors.CommandExpected;
 import me.heraclitus.compiler.errors.CommandNotFound;
+import me.heraclitus.compiler.errors.LabelUndefined;
 
 public class Compiler {
 	public Compiler() {

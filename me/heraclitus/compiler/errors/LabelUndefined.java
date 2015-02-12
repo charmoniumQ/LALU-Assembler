@@ -1,4 +1,4 @@
-package me.heraclitus.compiler.error;
+package me.heraclitus.compiler.errors;
 
 import me.heraclitus.compiler.backend.Label;
 

@@ -13,11 +13,11 @@ import me.heraclitus.compiler.backend.CommandSpec;
 import me.heraclitus.compiler.backend.Compiler;
 import me.heraclitus.compiler.backend.Prepocessor;
 import me.heraclitus.compiler.backend.Token;
-import me.heraclitus.compiler.error.LabelUndefined;
 import me.heraclitus.compiler.errors.AddressExpected;
 import me.heraclitus.compiler.errors.AddressIncorrect;
 import me.heraclitus.compiler.errors.CommandExpected;
 import me.heraclitus.compiler.errors.CommandNotFound;
+import me.heraclitus.compiler.errors.LabelUndefined;
 
 public class CompilerRunner {
 	public static String run(File inputFile, File outputFile) {
