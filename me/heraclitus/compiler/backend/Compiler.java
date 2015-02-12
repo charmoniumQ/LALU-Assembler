@@ -35,7 +35,6 @@ public class Compiler {
 					throw new CommandNotFound(ct);
 				}
 				CommandSpec cs = commandSet.get(ct.getSource());
-				output.append(cs.getCode());
 
 				if (cs.getArgs()) {
 					if (!(i + 1 < symbols.size())) {
@@ -47,19 +46,24 @@ public class Compiler {
 							throw new AddressIncorrect(ad);
 						}
 						output.append(ad.getSource());
-						i += 1;
-					} else if (symbols.get(i + 1) instanceof Label) {
-						Label la = (Label) symbols.get(i + 1);
-						if (!labels.containsKey(la.getSource())) {
-							throw new LabelUndefined(la);
-						}
-						output.append(labels.get(la.getSource()));
+                        output.append(cs.getCode());
 						i += 1;
 					} else {
-						throw new AddressExpected(symbols.get(i + 1), cs, ct);
-					}
+                        if (symbols.get(i + 1) instanceof Label) {
+                            Label la = (Label) symbols.get(i + 1);
+                            if (!labels.containsKey(la.getSource())) {
+                                throw new LabelUndefined(la);
+                            }
+                            output.append(labels.get(la.getSource()));
+                            output.append(cs.getCode());
+                            i += 1;
+                        } else {
+                            throw new AddressExpected(symbols.get(i + 1), cs, ct);
+                        }
+                    }
 				} else {
 					output.append("0000");
+                    output.append(cs.getCode());
 				}
 				i += 1;
 			} else {
