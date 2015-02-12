@@ -1,7 +1,7 @@
 package me.heraclitus.compiler.backend;
 
-public abstract class Symbol {
-	public Symbol(String source, int row, int col) {
+public abstract class Token {
+	public Token(String source, int row, int col) {
 		this.source = source;
 		this.row = row;
 		this.col = col;

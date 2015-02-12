@@ -5,15 +5,18 @@ import java.util.regex.Pattern;
 
 
 public class Prepocessor {
-	public List<Symbol> preprocess(String source) {
+	public List<Token> preprocess(String source) {
 		source = strip(source);
-		List<Symbol> tokens = new ArrayList<Symbol>();
+		List<Token> tokens = new ArrayList<Token>();
 		for (String token : source.split(" ")) {
 			if (token.matches("\\p{Digit}+")) {
 				tokens.add(new Address(token, 1, 1));
 			}
 			if (token.matches("\\p{Lower}+")) {
 				tokens.add(new CommandToken(token, 1, 1));
+			}
+			if (token.matches("@\\p{Lower}+")) {
+				tokens.add(new Label(token, 1, 1));
 			}
 		}
 		return tokens;

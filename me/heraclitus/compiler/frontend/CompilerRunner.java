@@ -12,7 +12,8 @@ import java.util.Map;
 import me.heraclitus.compiler.backend.CommandSpec;
 import me.heraclitus.compiler.backend.Compiler;
 import me.heraclitus.compiler.backend.Prepocessor;
-import me.heraclitus.compiler.backend.Symbol;
+import me.heraclitus.compiler.backend.Token;
+import me.heraclitus.compiler.error.LabelUndefined;
 import me.heraclitus.compiler.errors.AddressExpected;
 import me.heraclitus.compiler.errors.AddressIncorrect;
 import me.heraclitus.compiler.errors.CommandExpected;
@@ -37,12 +38,12 @@ public class CompilerRunner {
 		dict.put("sub", new CommandSpec("0001", false));
 		dict.put("ld", new CommandSpec("0010", true));
 		co.setCommandSet(dict);
-		List<Symbol> tokens = pp.preprocess(inputString);
+		List<Token> tokens = pp.preprocess(inputString);
 		String outputString;
 		try {
 			outputString = co.compile(tokens);
 		} catch (CommandNotFound | AddressExpected | CommandExpected
-				| AddressIncorrect e) {
+				| AddressIncorrect | LabelUndefined e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 			return e.getMessage();
