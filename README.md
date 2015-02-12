@@ -9,20 +9,19 @@ LALU Assembler
 - ld (takes one address)
 
 ##### Features:
-- Whitespace ignorant
+Whitespace ignorant:
 
-This:
+This
 
     add sub ld 1000
     
-is equivalent to this:
+is equivalent to this
 
     add
     sub
     ld 100
 
-- Comments (line comments and block comments)
- 
+Comments (line comments and block comments):
 
     add // This is a comment
     sub /*
@@ -33,8 +32,8 @@ is equivalent to this:
     (noteably) this is a comment
     */
 
-- Labels
 
+Labels:
 
     @abc // stores the address of the next command
     add
