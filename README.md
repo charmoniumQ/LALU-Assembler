@@ -3,10 +3,14 @@ LALU Assembler
 
 "A simple assembler for a simple processor."
 
+##### Quick guide:
+
+You need to put a source file in the input and select a destination to output the compiled binary.
+
 ##### Commands:
-- add
-- sub
-- ld (takes one address)
+- add (0000)
+- sub (0001)
+- ld (0010) takes one address
 
 ##### Features:
 Whitespace ignorant:
@@ -29,7 +33,7 @@ Comments (line comments and block comments):
     so is this
     */
     ld 100 // /*
-    (noteably) this is a comment
+    (notably) this is a comment
     */
 
 
