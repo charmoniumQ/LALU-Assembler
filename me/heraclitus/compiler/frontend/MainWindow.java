@@ -3,40 +3,35 @@ package me.heraclitus.compiler.frontend;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Window.Type;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import java.awt.Insets;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
-public class Window {
+public class MainWindow {
 
-	private JFrame frame;
-	private JButton inputBtn, outputBtn;
-	private JLabel inputLbl, outputLbl;
-	private JFileChooser inputCh, outputCh;
-	private File inputFile, outputFile;
-	private JButton compileBtn;
-	private JScrollPane outputPane;
-	private JTextArea outputTA;
+	JFrame frame;
+	JButton inputBtn, outputBtn;
+	JLabel inputLbl, outputLbl;
+	JFileChooser inputCh, outputCh;
+	File inputFile, outputFile;
+	JButton compileBtn;
+	JScrollPane outputPane;
+	JTextArea outputTA;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Window window = new Window();
+					MainWindow window = new MainWindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,8 +40,8 @@ public class Window {
 		});
 	}
 
-	public Window() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-		initialize();
+	public MainWindow() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+		initializeWindow();
 	}
 
 	/**
@@ -55,7 +50,7 @@ public class Window {
 	 * @throws IllegalAccessException
 	 * @throws UnsupportedLookAndFeelException
 	 */
-	private void initialize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	private void initializeWindow() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		
 		frame = new JFrame();
@@ -70,45 +65,25 @@ public class Window {
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0,
 				Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
-		
-		inputCh = new JFileChooser();
-		
-		outputCh = new JFileChooser();
 
 		inputLbl = new JLabel("Input: ");
 		GridBagConstraints inputLblGBC = new GridBagConstraints();
-		inputLblGBC.insets = new Insets(0, 0, 5, 5);
+		inputLblGBC.insets = new Insets(5, 5, 5, 5);
 		inputLblGBC.anchor = GridBagConstraints.LINE_START;
 		inputLblGBC.gridx = 0;
 		inputLblGBC.gridy = 1;
 		frame.getContentPane().add(inputLbl, inputLblGBC);
 
 		inputBtn = new JButton("Change");
-		inputBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int returnVal = inputCh.showOpenDialog(frame);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					inputFile = inputCh.getSelectedFile();
-					inputLbl.setText("Input: " + inputFile.getName());
-					frame.pack();
-				}
-			}
-		});
 		GridBagConstraints inputBtnGBC = new GridBagConstraints();
-		inputBtnGBC.insets = new Insets(0, 0, 5, 0);
+		inputBtnGBC.insets = new Insets(5, 5, 5, 5);
 		inputBtnGBC.gridx = 1;
 		inputBtnGBC.gridy = 1;
 		frame.getContentPane().add(inputBtn, inputBtnGBC);
 
 		compileBtn = new JButton("Compile");
-		compileBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String output = CompilerRunner.run(inputFile, outputFile);
-				outputTA.setText(output);
-			}
-		});
 		GridBagConstraints compileBtnGBC = new GridBagConstraints();
-		compileBtnGBC.insets = new Insets(0, 0, 5, 0);
+		compileBtnGBC.insets = new Insets(5, 5, 5, 5);
 		compileBtnGBC.gridx = 1;
 		compileBtnGBC.gridy = 2;
 		compileBtnGBC.fill = GridBagConstraints.NONE;
@@ -117,26 +92,15 @@ public class Window {
 
 		outputLbl = new JLabel("Output: ");
 		GridBagConstraints outputLblGBC = new GridBagConstraints();
-		outputLblGBC.insets = new Insets(0, 0, 5, 5);
+		outputLblGBC.insets = new Insets(5, 5, 5, 5);
 		outputLblGBC.anchor = GridBagConstraints.LINE_START;
 		outputLblGBC.gridx = 0;
 		outputLblGBC.gridy = 3;
 		frame.getContentPane().add(outputLbl, outputLblGBC);
 
 		outputBtn = new JButton("Change");
-		outputBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int returnVal = outputCh.showOpenDialog(frame);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					outputFile = outputCh.getSelectedFile();
-					outputFile = outputCh.getSelectedFile();
-					outputLbl.setText("Output: " + outputFile.getName());
-					frame.pack();
-				}
-			}
-		});
 		GridBagConstraints outputBtnGBC = new GridBagConstraints();
-		outputBtnGBC.insets = new Insets(0, 0, 5, 0);
+		outputBtnGBC.insets = new Insets(5, 5, 5, 5);
 		outputBtnGBC.gridx = 1;
 		outputBtnGBC.gridy = 3;
 		frame.getContentPane().add(outputBtn, outputBtnGBC);
@@ -144,7 +108,7 @@ public class Window {
 		outputPane = new JScrollPane();
 		GridBagConstraints outputPaneGBC = new GridBagConstraints();
 		outputPaneGBC.gridwidth = 2;
-		outputPaneGBC.insets = new Insets(0, 0, 0, 5);
+		outputPaneGBC.insets = new Insets(5, 5, 5, 5);
 		outputPaneGBC.fill = GridBagConstraints.BOTH;
 		outputPaneGBC.gridx = 0;
 		outputPaneGBC.gridy = 4;

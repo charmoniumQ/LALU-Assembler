@@ -1,5 +1,6 @@
 package me.heraclitus.compiler.backend;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,10 @@ import me.heraclitus.compiler.errors.CommandExpected;
 import me.heraclitus.compiler.errors.CommandNotFound;
 
 public class Compiler {
+	public Compiler() {
+		commandSet = new HashMap<String, CommandSpec>();
+	}
+	
 	public String compile(List<Symbol> symbols) throws CommandNotFound,
 			AddressExpected, CommandExpected, AddressIncorrect {
 		int i = 0;
@@ -38,11 +43,11 @@ public class Compiler {
 					throw new AddressIncorrect(ad);
 				}
 				output.append(ad.getSource());
-				i += 2;
+				i += 1;
 			} else {
 				output.append("0000");
-				i += 1;
 			}
+			i += 1;
 			
 		}
 		bytes = output.length() / 8;

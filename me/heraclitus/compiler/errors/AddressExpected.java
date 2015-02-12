@@ -13,7 +13,7 @@ public class AddressExpected extends Exception {
 			message = "Address Expected:\n\tEnd of file is reached but an address is expected to complete Command '" + ct.getSource() + "' (at row " + ct.getRow() + ", col " + ct.getCol() + ")";
 		} else {
 			message = "Address Expected in place of '" + sy.getSource() + "':" + 
-					"\n\tAn address was expected to complete Command '" + ct.getSource() + "' (at row " + ct.getRow() + ", col " + ct.getCol() + ")";
+					"\n\tAn address was expected to complete '" + ct.getSource() + "'";
 		}
 	}
 

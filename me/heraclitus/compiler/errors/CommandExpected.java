@@ -6,7 +6,6 @@ import me.heraclitus.compiler.backend.Symbol;
 public class CommandExpected extends Exception {
 
 	public CommandExpected(Symbol sy) {
-		super("Command expected in place of '" + sy.getSource() + "':" +
-				"\n\tA command was expected");
+		super("Command expected in place of '" + sy.getSource() + "'");
 	}
 }
