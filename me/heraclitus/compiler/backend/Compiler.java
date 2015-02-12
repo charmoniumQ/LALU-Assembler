@@ -1,18 +1,51 @@
 package me.heraclitus.compiler.backend;
+
 import java.util.List;
 import java.util.Map;
 
+import me.heraclitus.compiler.errors.AddressExpected;
 import me.heraclitus.compiler.errors.CommandExpected;
 import me.heraclitus.compiler.errors.CommandNotFound;
-import me.heraclitus.compiler.errors.IncorrectArguments;
-
-
-
 
 public class Compiler {
-	public String compile(List<Symbol> symbols) throws CommandNotFound, IncorrectArguments, CommandExpected {
+	public String compile(List<Symbol> symbols) throws CommandNotFound,
+			AddressExpected, CommandExpected {
+		int i = 0;
+		StringBuilder output = new StringBuilder();
+		while (i < symbols.size()) {
+			Symbol sy = symbols.get(i);
+			if (!(sy instanceof CommandToken)) {
+				throw new CommandExpected(sy);
+			}
 
-		return null;
+			CommandToken ct = (CommandToken) sy;
+			if (!commandSet.containsKey(ct.getSource())) {
+				throw new CommandNotFound(ct);
+			}
+			CommandSpec cs = commandSet.get(ct.getSource());
+			output.append(cs.getCode());
+
+			if (cs.getArgs()) {
+				if (!(i + 1 < symbols.size())) {
+					throw new AddressExpected(null, cs, ct);
+				}
+				if (!(symbols.get(i + 1) instanceof Address)) {
+					throw new AddressExpected(symbols.get(i + 1), cs, ct);
+				}
+				output.append(((Address) symbols.get(i + 1)).getSource());
+				i += 2;
+			} else {
+				output.append("0000");
+				i += 1;
+			}
+			
+		}
+		bytes = output.length() / 8;
+		return output.toString();
+	}
+	
+	public int getBytes() {
+		return bytes;
 	}
 
 	public Map<String, CommandSpec> getCommandSet() {
@@ -22,9 +55,10 @@ public class Compiler {
 	public void setCommandSet(Map<String, CommandSpec> commandSet) {
 		this.commandSet = commandSet;
 	}
-	
+
 	Map<String, CommandSpec> commandSet;
 	/*
-	 * Set of commands for the program to 
+	 * Set of commands for the program to interpret
 	 */
+	int bytes = 0;
 }
