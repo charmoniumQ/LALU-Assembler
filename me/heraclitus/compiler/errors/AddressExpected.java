@@ -10,9 +10,9 @@ public class AddressExpected extends Exception {
 	public AddressExpected(Symbol sy, CommandSpec cs, CommandToken ct) {
 		super("Error Address Expected:");
 		if (sy == null) {
-			message = "Error Address Expected:\n\tEnd of file is reached but an address is expected to complete Command '" + ct.getSource() + "' (at row " + ct.getRow() + ", col " + ct.getCol() + ")";
+			message = "Address Expected:\n\tEnd of file is reached but an address is expected to complete Command '" + ct.getSource() + "' (at row " + ct.getRow() + ", col " + ct.getCol() + ")";
 		} else {
-			message = "Error Address Expected: Symbol '" + sy.getSource() + "' (at row " + sy.getRow() + ", col " + sy.getCol() + ")" + 
+			message = "Address Expected in place of '" + sy.getSource() + "':" + 
 					"\n\tAn address was expected to complete Command '" + ct.getSource() + "' (at row " + ct.getRow() + ", col " + ct.getCol() + ")";
 		}
 	}

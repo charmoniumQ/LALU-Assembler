@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import me.heraclitus.compiler.errors.AddressExpected;
+import me.heraclitus.compiler.errors.AddressIncorrect;
 import me.heraclitus.compiler.errors.CommandExpected;
 import me.heraclitus.compiler.errors.CommandNotFound;
 
 public class Compiler {
 	public String compile(List<Symbol> symbols) throws CommandNotFound,
-			AddressExpected, CommandExpected {
+			AddressExpected, CommandExpected, AddressIncorrect {
 		int i = 0;
 		StringBuilder output = new StringBuilder();
 		while (i < symbols.size()) {
@@ -32,7 +33,11 @@ public class Compiler {
 				if (!(symbols.get(i + 1) instanceof Address)) {
 					throw new AddressExpected(symbols.get(i + 1), cs, ct);
 				}
-				output.append(((Address) symbols.get(i + 1)).getSource());
+				Address ad = (Address) symbols.get(i + 1);
+				if (!(ad.getSource().matches("^[01]{4}$"))) {
+					throw new AddressIncorrect(ad);
+				}
+				output.append(ad.getSource());
 				i += 2;
 			} else {
 				output.append("0000");

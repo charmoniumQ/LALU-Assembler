@@ -6,7 +6,7 @@ import me.heraclitus.compiler.backend.CommandToken;
 public class CommandNotFound extends Exception {
 
 	public CommandNotFound(CommandToken ct) {
-		super("Error Command Not Found: Symbol '" + ct.getSource() + "' (at row " + ct.getRow() + ", col " + ct.getCol() + ")" + 
+		super("Command '" + ct.getSource() + "' not found" + 
 				"\n\tSymbol is not a known command");
 	}
 }
