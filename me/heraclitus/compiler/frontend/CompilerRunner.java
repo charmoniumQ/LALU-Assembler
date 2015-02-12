@@ -58,6 +58,7 @@ public class CompilerRunner {
 			e.printStackTrace();
 			return errorLog;
 		}
+		outputWriter.write(outputString);
 		outputWriter.close();
 		System.out.println(outputString);
 		outputWriter.print(outputString);

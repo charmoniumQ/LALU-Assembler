@@ -33,15 +33,3 @@ public class Prepocessor {
 		return source;
 	}
 }
-
-/*
-Whitespace: add 
-  0101 
-  	 1010;
-
-Line comments: add 0110 1100; // hello
-Multi-line comments: add /*
-what
-ghj
-* / 0101 1000;
-*/
