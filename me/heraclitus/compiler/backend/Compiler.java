@@ -26,8 +26,7 @@ public class Compiler {
 			if (sy instanceof Label) {
 				String addressStr = String.format("%4s", Integer.toBinaryString(getBytes())).replace(' ', '0');
 				// TODO: this
-				labels.put(sy.getSource(),
-						addressStr);
+				labels.put(sy.getSource(), addressStr);
 				i += 1;
 			} else if (sy instanceof CommandToken) {
 				CommandToken ct = (CommandToken) sy;

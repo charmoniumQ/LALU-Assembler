@@ -11,6 +11,7 @@ You need to put a source file in the input and select a destination to output th
 - add (0000)
 - sub (0001)
 - ld (0010) takes one address
+- xchg (0011)
 
 ##### Features:
 Whitespace ignorant:
