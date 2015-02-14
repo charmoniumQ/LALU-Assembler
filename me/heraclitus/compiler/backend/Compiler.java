@@ -18,18 +18,18 @@ public class Compiler {
 	public String compile(List<Token> symbols) throws CommandNotFound,
 			AddressExpected, CommandExpected, AddressIncorrect, LabelUndefined {
 		int i = 0;
-		StringBuilder output = new StringBuilder();
+		StringBuilder output = new StringBuilder("v2.0 raw\n");
 		Map<String, String> labels = new HashMap<String, String>();
 
 		while (i < symbols.size()) {
 			Token sy = symbols.get(i);
 			if (sy instanceof Label) {
-				String addressStr = String.format("%4s", Integer.toBinaryString(output.length() / 8)).replace(' ', '0');
+				String addressStr = String.format("%4s", Integer.toBinaryString(getBytes())).replace(' ', '0');
+				// TODO: this
 				labels.put(sy.getSource(),
 						addressStr);
 				i += 1;
 			} else if (sy instanceof CommandToken) {
-
 				CommandToken ct = (CommandToken) sy;
 				if (!commandSet.containsKey(ct.getSource())) {
 					throw new CommandNotFound(ct);
@@ -45,33 +45,36 @@ public class Compiler {
 						if (!(ad.getSource().matches("^[01]{4}$"))) {
 							throw new AddressIncorrect(ad);
 						}
-						output.append(ad.getSource());
-                        output.append(cs.getCode());
-						i += 1;
+						output.append(toByte(ad.getSource() + cs.getCode()));
+						bytes += 1;
+						i += 2;
 					} else {
                         if (symbols.get(i + 1) instanceof Label) {
                             Label la = (Label) symbols.get(i + 1);
                             if (!labels.containsKey(la.getSource())) {
                                 throw new LabelUndefined(la);
                             }
-                            output.append(labels.get(la.getSource()));
-                            output.append(cs.getCode());
-                            i += 1;
+    						output.append(toByte(labels.get(la.getSource()) + cs.getCode()));
+                            i += 2;
+                            bytes += 1;
                         } else {
                             throw new AddressExpected(symbols.get(i + 1), cs, ct);
                         }
                     }
 				} else {
-					output.append("0000");
-                    output.append(cs.getCode());
+					output.append(toByte("0000" + cs.getCode()));
+					bytes += 1;
+					i += 1;
 				}
-				i += 1;
 			} else {
 				throw new CommandExpected(sy);
 			}
-
+			if (getBytes() % 8 == 0) {
+				output.append("\n");
+			} else {
+				output.append(" ");
+			}
 		}
-		bytes = output.length() / 8;
 		return output.toString();
 	}
 
@@ -85,6 +88,10 @@ public class Compiler {
 
 	public void setCommandSet(Map<String, CommandSpec> commandSet) {
 		this.commandSet = commandSet;
+	}
+	
+	private String toByte(String binary) {
+		return String.format("%02x", Integer.parseInt(binary, 2));
 	}
 
 	Map<String, CommandSpec> commandSet;
