@@ -38,7 +38,7 @@ public class CompilerRunner {
 		dict.put("sub", new CommandSpec("0001", false));
 		dict.put("ld", new CommandSpec("0010", true));
         dict.put("xchg", new CommandSpec("0011", false));
-        dict.put("st", new CommandSpec("0100", false));
+        dict.put("st", new CommandSpec("0100", true));
 		co.setCommandSet(dict);
 		List<Token> tokens = pp.preprocess(inputString);
 		String outputString;
