@@ -25,20 +25,21 @@ public class CompilerRunner {
 		try {
 			inputString = new String(Files.readAllBytes(inputFile.toPath()));
 		} catch (IOException e) {
-			String errorLog = "Unable to read file (" + inputFile.getName() + "): " +  e.getMessage();
-			System.out.println(errorLog);
+			String errorLog = "Unable to read file (" + inputFile.getName()
+					+ "): " + e.getMessage();
+			System.err.println(errorLog);
 			e.printStackTrace();
 			return errorLog;
 		}
-		
+
 		Prepocessor pp = new Prepocessor();
 		Compiler co = new Compiler();
 		Map<String, CommandSpec> dict = new HashMap<String, CommandSpec>();
 		dict.put("add", new CommandSpec("0000", false));
 		dict.put("sub", new CommandSpec("0001", false));
 		dict.put("ld", new CommandSpec("0010", true));
-        dict.put("xchg", new CommandSpec("0011", false));
-        dict.put("st", new CommandSpec("0100", true));
+		dict.put("xchg", new CommandSpec("0011", false));
+		dict.put("st", new CommandSpec("0100", true));
 		co.setCommandSet(dict);
 		List<Token> tokens = pp.preprocess(inputString);
 		String outputString;
@@ -46,27 +47,29 @@ public class CompilerRunner {
 			outputString = co.compile(tokens);
 		} catch (CommandNotFound | AddressExpected | CommandExpected
 				| AddressIncorrect | LabelUndefined e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			e.printStackTrace();
 			return e.getMessage();
 		}
-		
-		PrintWriter outputWriter;
-		try {
-			outputWriter = new PrintWriter(outputFile);
-		} catch (FileNotFoundException e) {
-			String errorLog = "Unable to write file (" + outputFile.getName() + "): " + e.getMessage();
-			System.out.println(errorLog);
-			e.printStackTrace();
-			return errorLog;
+
+		if (outputFile != null) {
+			PrintWriter outputWriter;
+			try {
+				outputWriter = new PrintWriter(outputFile);
+			} catch (FileNotFoundException e) {
+				String errorLog = "Unable to write file ("
+						+ outputFile.getName() + "): " + e.getMessage();
+				System.err.println(errorLog);
+				e.printStackTrace();
+				return errorLog;
+			}
+			outputWriter.write(outputString);
+			outputWriter.close();
 		}
-		outputWriter.write(outputString);
-		outputWriter.close();
 		System.out.println(outputString);
-		outputWriter.print(outputString);
-		
+
 		String successLog = "Successfully compiled " + co.getBytes() + " bytes";
-		System.out.println(successLog);
+		System.err.println(successLog);
 		return successLog;
 	}
 }

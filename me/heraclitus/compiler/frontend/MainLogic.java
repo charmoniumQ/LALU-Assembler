@@ -10,36 +10,44 @@ import javax.swing.JFileChooser;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class MainLogic extends MainWindow {
-	private String inputLastLocation = "inputLastLocation", outputLastLocation = "outputLastLocation";
+	private String inputLastLocation = "inputLastLocation",
+			outputLastLocation = "outputLastLocation";
 	private Preferences prefs;
-	
+
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainLogic window = new MainLogic();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+		if (args.length != 2) {
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						MainLogic window = new MainLogic();
+						window.frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
-			}
-		});
+			});
+		} else {
+			File input = new File(args[0]);
+			File output = new File(args[1]);
+			CompilerRunner.run(input, output);
+		}
 	}
 
-	public MainLogic() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public MainLogic() throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, UnsupportedLookAndFeelException {
 		super();
 		initializeLogic();
 	}
 
 	private void initializeLogic() {
 		prefs = Preferences.userRoot().node(getClass().getName());
-		
+
 		inputCh = new JFileChooser(prefs.get(inputLastLocation,
-			    new File(".").getAbsolutePath()));
-		
+				new File(".").getAbsolutePath()));
+
 		outputCh = new JFileChooser(prefs.get(outputLastLocation,
-			    new File(".").getAbsolutePath()));
-		
+				new File(".").getAbsolutePath()));
+
 		inputBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int returnVal = inputCh.showOpenDialog(frame);
@@ -51,7 +59,7 @@ public class MainLogic extends MainWindow {
 				}
 			}
 		});
-		
+
 		outputBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int returnVal = outputCh.showOpenDialog(frame);
