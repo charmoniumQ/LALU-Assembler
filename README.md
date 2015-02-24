@@ -5,9 +5,9 @@ LALU Assembler
 
 ##### Quick guide:
 
-Execute the program normally (with no arguments) to enter GUI mode. You need to put a source file in the input and select a destination to output the compiled binary. Errors are written to stderr.
+Execute the program normally (with no arguments) to enter GUI mode. You need to put a source file in the input and select a destination to output the compiled binary.
 
-Execute the program with an input source file to enter CMD mode (java -jar LALU_Assembler_v*.jar). Output is written to stdout.
+To use CMD mode, supply the name of a source file as an argument and pipe the stdout to a file. Run this from the prompt to compile test.asm to tset.out: `java -jar LALU_Assembler_v*.jar test.asm > test.out`). Debugging information is written to stderr.
 
 ##### Commands:
 - add (0000)
@@ -50,4 +50,4 @@ Labels:
     @abc // stores the address of the next command
     add
     sub
-    goto @abc // spoiler alert: goto statement be coming soon
+    jmp @abc // goes back to the 'add' statement

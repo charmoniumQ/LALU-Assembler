@@ -81,7 +81,7 @@ public class CompilerRunner {
 		dict.put("st", new CommandSpec("0100", true));
 		dict.put("jmp", new CommandSpec("101", true, true));
 		dict.put("jmpn", new CommandSpec("110", true, true));
-		dict.put("loada", new CommandSpec("0111", true));
+		dict.put("loada", new CommandSpec("0111", false));
 		dict.put("nop", new CommandSpec("1000", false));
 		co.setCommandSet(dict);
 		List<Token> tokens = pp.preprocess(inputString);
