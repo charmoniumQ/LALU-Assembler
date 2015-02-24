@@ -15,7 +15,7 @@ public class MainLogic extends MainWindow {
 	private Preferences prefs;
 
 	public static void main(String[] args) {
-		if (args.length != 2) {
+		if (args.length != 1) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
@@ -28,13 +28,11 @@ public class MainLogic extends MainWindow {
 			});
 		} else {
 			File input = new File(args[0]);
-			File output = new File(args[1]);
-			CompilerRunner.run(input, output);
+			CompilerRunner.run(input, null);
 		}
 	}
 
-	public MainLogic() throws ClassNotFoundException, InstantiationException,
-			IllegalAccessException, UnsupportedLookAndFeelException {
+	public MainLogic() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		super();
 		initializeLogic();
 	}
@@ -42,11 +40,9 @@ public class MainLogic extends MainWindow {
 	private void initializeLogic() {
 		prefs = Preferences.userRoot().node(getClass().getName());
 
-		inputCh = new JFileChooser(prefs.get(inputLastLocation,
-				new File(".").getAbsolutePath()));
+		inputCh = new JFileChooser(prefs.get(inputLastLocation, new File(".").getAbsolutePath()));
 
-		outputCh = new JFileChooser(prefs.get(outputLastLocation,
-				new File(".").getAbsolutePath()));
+		outputCh = new JFileChooser(prefs.get(outputLastLocation, new File(".").getAbsolutePath()));
 
 		inputBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

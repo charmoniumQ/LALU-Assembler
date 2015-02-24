@@ -52,7 +52,7 @@ public class MainWindow {
 	 */
 	private void initializeWindow() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		
+
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setType(Type.NORMAL);
@@ -62,8 +62,7 @@ public class MainWindow {
 		gridBagLayout.columnWidths = new int[] { 0, 123 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 68, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0,
-				Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
 
 		inputLbl = new JLabel("Input: ");
@@ -104,7 +103,7 @@ public class MainWindow {
 		outputBtnGBC.gridx = 1;
 		outputBtnGBC.gridy = 3;
 		frame.getContentPane().add(outputBtn, outputBtnGBC);
-		
+
 		outputPane = new JScrollPane();
 		GridBagConstraints outputPaneGBC = new GridBagConstraints();
 		outputPaneGBC.gridwidth = 2;
@@ -113,7 +112,7 @@ public class MainWindow {
 		outputPaneGBC.gridx = 0;
 		outputPaneGBC.gridy = 4;
 		frame.getContentPane().add(outputPane, outputPaneGBC);
-		
+
 		outputTA = new JTextArea(10, 79);
 		outputTA.setEditable(false);
 		outputPane.setViewportView(outputTA);
