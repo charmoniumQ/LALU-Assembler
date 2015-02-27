@@ -82,6 +82,7 @@ public class CompilerRunner {
 		dict.put("jmp", new CommandSpec("101", true, true));
 		dict.put("jmpn", new CommandSpec("110", true, true));
 		dict.put("djmp", new CommandSpec("101", true, true)); // alias for jmp
+		dict.put("djmpn", new CommandSpec("110", true, true)); // alias for jmp
 		dict.put("loada", new CommandSpec("0111", false));
 		dict.put("nop", new CommandSpec("1000", false));
 		co.setCommandSet(dict);
