@@ -16,6 +16,7 @@ To use CMD mode, supply the name of a source file as an argument and pipe the st
 - xchg (0011)
 - st (0100) takes one 4-bit address
 - jmp (101) takes one 5-bit address
+- djmp is an alias for jmp
 - jmpn (110) takes one 5-bit address
 - loadA (0111)
 - nop (1000)

@@ -28,7 +28,7 @@ public class CompilerRunner {
 		try {
 			inputString = new String(Files.readAllBytes(inputFile.toPath()));
 		} catch (IOException e) {
-			log.append("Unable to read file (" + inputFile.getName() + "): " + e.getMessage() + "\n");
+			log.append("Unable to read file (" + inputFile.getName() + "): " + e.getMessage() + "\n\n");
 			System.err.println(log.toString());
 			e.printStackTrace();
 			return log.toString();
@@ -39,7 +39,7 @@ public class CompilerRunner {
 		try {
 			o = compile(inputString);
 		} catch (CommandNotFound | AddressExpected | CommandExpected | LabelUndefined | AddressFormat | UnknownSymbol e) {
-			log.append(e.getMessage());
+			log.append(e.getMessage() + "\n\n");
 			System.err.println(log.toString());
 			e.printStackTrace();
 			return log.toString();
@@ -52,7 +52,7 @@ public class CompilerRunner {
 			try {
 				outputWriter = new PrintStream(outputFile);
 			} catch (FileNotFoundException e) {
-				log.append("Unable to write file (" + outputFile.getName() + "): " + e.getMessage() + "\n");
+				log.append("Unable to write file (" + outputFile.getName() + "): " + e.getMessage() + "\n\n");
 				System.err.println(log.toString());
 				e.printStackTrace();
 				return log.toString();
@@ -81,6 +81,7 @@ public class CompilerRunner {
 		dict.put("st", new CommandSpec("0100", true));
 		dict.put("jmp", new CommandSpec("101", true, true));
 		dict.put("jmpn", new CommandSpec("110", true, true));
+		dict.put("djmp", new CommandSpec("101", true, true)); // alias for jmp
 		dict.put("loada", new CommandSpec("0111", false));
 		dict.put("nop", new CommandSpec("1000", false));
 		co.setCommandSet(dict);
