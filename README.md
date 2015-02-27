@@ -19,7 +19,7 @@ To use CMD mode, supply the name of a source file as an argument and pipe the st
 - djmp ("delayed jump") is an alias for jmp
 - jmpn (110) takes one 5-bit address
 - djmpn ("delayed jump if negative") is an alias for jmpn
-- loadA (0111)
+- loada (0111)
 - nop (1000)
 
 ##### Features:
