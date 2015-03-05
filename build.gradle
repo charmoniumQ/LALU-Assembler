@@ -1,0 +1,23 @@
+apply plugin: 'java'
+apply plugin: 'application'
+//apply plugin: 'idea'
+
+version = '2.4'
+mainClassName = 'me.heraclitus.compiler.frontend.MainLogic'
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+sourceSets {
+  main {
+	java {
+	  srcDir 'src'
+	}
+  }
+}
+
+jar {
+  archiveName = "LALU_Assembler_v${version}.jar"
+  manifest {
+	attributes 'Main-Class': mainClassName
+  }
+}
