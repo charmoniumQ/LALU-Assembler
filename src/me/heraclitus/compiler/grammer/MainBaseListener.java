@@ -1,7 +1,7 @@
 // Generated from grammer/Main.g4 by ANTLR 4.5
 
     package me.heraclitus.compiler.grammer;
- 
+
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -31,37 +31,85 @@ public class MainBaseListener implements MainListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNobyte(MainParser.NobyteContext ctx) { }
+	@Override public void enterAssignLabel(MainParser.AssignLabelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNobyte(MainParser.NobyteContext ctx) { }
+	@Override public void exitAssignLabel(MainParser.AssignLabelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCodebyte(MainParser.CodebyteContext ctx) { }
+	@Override public void enterAssignPointer(MainParser.AssignPointerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCodebyte(MainParser.CodebyteContext ctx) { }
+	@Override public void exitAssignPointer(MainParser.AssignPointerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNullary_command_4(MainParser.Nullary_command_4Context ctx) { }
+	@Override public void enterCodebyteLiteral(MainParser.CodebyteLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNullary_command_4(MainParser.Nullary_command_4Context ctx) { }
+	@Override public void exitCodebyteLiteral(MainParser.CodebyteLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCodebyteNullary(MainParser.CodebyteNullaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCodebyteNullary(MainParser.CodebyteNullaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCodebyteUnary4(MainParser.CodebyteUnary4Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCodebyteUnary4(MainParser.CodebyteUnary4Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCodebyteUnary3(MainParser.CodebyteUnary3Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCodebyteUnary3(MainParser.CodebyteUnary3Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNullary_command(MainParser.Nullary_commandContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNullary_command(MainParser.Nullary_commandContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -91,25 +139,61 @@ public class MainBaseListener implements MainListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAddress_4(MainParser.Address_4Context ctx) { }
+	@Override public void enterAddressLiteral4(MainParser.AddressLiteral4Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAddress_4(MainParser.Address_4Context ctx) { }
+	@Override public void exitAddressLiteral4(MainParser.AddressLiteral4Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAddress_5(MainParser.Address_5Context ctx) { }
+	@Override public void enterAddressPointer(MainParser.AddressPointerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAddress_5(MainParser.Address_5Context ctx) { }
+	@Override public void exitAddressPointer(MainParser.AddressPointerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAddressLiteral5(MainParser.AddressLiteral5Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAddressLiteral5(MainParser.AddressLiteral5Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAddressLabel(MainParser.AddressLabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAddressLabel(MainParser.AddressLabelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEof(MainParser.EofContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEof(MainParser.EofContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

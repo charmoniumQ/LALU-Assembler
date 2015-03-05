@@ -6,44 +6,46 @@ options {
 
 @header {
     package me.heraclitus.compiler.grammer;
- }
+}
 
-source : (codebyte | nobyte)+ EOF ;
+source : ((nb = nobyte | cb = codebyte))+ eof ;
 
-nobyte :
-        label |
-        pointer '=' literal_address_4 ;
+nobyte : labelName = label # assignLabel
+       | pointerName = pointer '=' literal = literal_address_4 # assignPointer
+       ;
 
-codebyte :
-        '0b' LITERAL_BYTE_8 |
-        nullary_command_4 |
-        unary_command_4 address_4 |
-        unary_command_3 address_5 ;
+codebyte : '0b' literal = literal_byte_8 # codebyteLiteral
+         | command = nullary_command # codebyteNullary
+         | command = unary_command_4 address = address_4 # codebyteUnary4
+         | command = unary_command_3 address = address_5 # codebyteUnary3
+         ;
 
-nullary_command_4 returns [String value] :
-        'add' {$value = "00000000";} |
-        'sub' {$value = "00000001";} |
-        'xchg' {$value = "00000011";} |
-        'loada' {$value = "00000111";} |
-        'nop' {$value = "00001000";} ;
+nullary_command
+returns [String code] : 'add' {$code = "00000000";}
+                       | 'sub' {$code = "00000001";}
+                       | 'xchg' {$code = "00000011";}
+                       | 'loada' {$code = "00000111";}
+                       | 'nop' {$code = "00001000";}
+                       ;
 
-unary_command_4 returns [String value] :
-        'ld' {$value = "0010";} |
-        'st' {$value = "0100";};
+unary_command_4
+returns [String code] : 'ld' {$code = "0010";}
+                       | 'st' {$code = "0100";};
 
-unary_command_3 returns [String value] :
-        'jmp' {$value = "101";} |
-        'djmp' {$value = "101";} |
-        'jmpn' {$value = "110";} |
-        'djmpn' {$value = "110";} ;
+unary_command_3
+returns [String code] : 'jmp' {$code = "101";}
+                       | 'djmp' {$code = "101";}
+                       | 'jmpn' {$code = "110";}
+                       | 'djmpn' {$code = "110";}
+                       ;
 
-address_4 :
-        literal_address_4 |
-        pointer ;
+address_4 : literal = literal_address_4 # addressLiteral4
+          | pointerName = pointer # addressPointer
+          ;
 
-address_5 :
-        literal_address_5 |
-        label ;
+address_5 : literal = literal_address_5 # addressLiteral5
+          | labelName = label # addressLabel
+          ;
 
 POINTER : '*' LETTER+ ;
 
@@ -57,7 +59,9 @@ LITERAL_BYTE_8 : BIT BIT BIT BIT BIT BIT BIT BIT ;
 
 fragment BIT : [01] ;
 
-fragment LETTER : [azAZ] ;
+fragment LETTER : [a-zA-Z] ;
+
+eof : EOF ;
 
 WS : [ \r\t\n]+ -> skip ;
 

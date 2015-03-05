@@ -1,7 +1,7 @@
 // Generated from grammer/Main.g4 by ANTLR 4.5
 
     package me.heraclitus.compiler.grammer;
- 
+
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -23,14 +23,14 @@ public class MainParser extends Parser {
 		T__9=10, T__10=11, T__11=12, T__12=13, POINTER=14, LABEL=15, LITERAL_ADDRESS_5=16, 
 		LITERAL_ADDRESS_4=17, LITERAL_BYTE_8=18, WS=19, COMMENT=20, LINE_COMMENT=21;
 	public static final int
-		RULE_source = 0, RULE_nobyte = 1, RULE_codebyte = 2, RULE_nullary_command_4 = 3, 
+		RULE_source = 0, RULE_nobyte = 1, RULE_codebyte = 2, RULE_nullary_command = 3, 
 		RULE_unary_command_4 = 4, RULE_unary_command_3 = 5, RULE_address_4 = 6, 
-		RULE_address_5 = 7, RULE_pointer = 8, RULE_label = 9, RULE_literal_byte_8 = 10, 
-		RULE_literal_address_5 = 11, RULE_literal_address_4 = 12;
+		RULE_address_5 = 7, RULE_eof = 8, RULE_pointer = 9, RULE_label = 10, RULE_literal_byte_8 = 11, 
+		RULE_literal_address_5 = 12, RULE_literal_address_4 = 13;
 	public static final String[] ruleNames = {
-		"source", "nobyte", "codebyte", "nullary_command_4", "unary_command_4", 
-		"unary_command_3", "address_4", "address_5", "pointer", "label", "literal_byte_8", 
-		"literal_address_5", "literal_address_4"
+		"source", "nobyte", "codebyte", "nullary_command", "unary_command_4", 
+		"unary_command_3", "address_4", "address_5", "eof", "pointer", "label", 
+		"literal_byte_8", "literal_address_5", "literal_address_4"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -92,18 +92,22 @@ public class MainParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 	public static class SourceContext extends ParserRuleContext {
-		public TerminalNode EOF() { return getToken(MainParser.EOF, 0); }
-		public List<CodebyteContext> codebyte() {
-			return getRuleContexts(CodebyteContext.class);
-		}
-		public CodebyteContext codebyte(int i) {
-			return getRuleContext(CodebyteContext.class,i);
+		public NobyteContext nb;
+		public CodebyteContext cb;
+		public EofContext eof() {
+			return getRuleContext(EofContext.class,0);
 		}
 		public List<NobyteContext> nobyte() {
 			return getRuleContexts(NobyteContext.class);
 		}
 		public NobyteContext nobyte(int i) {
 			return getRuleContext(NobyteContext.class,i);
+		}
+		public List<CodebyteContext> codebyte() {
+			return getRuleContexts(CodebyteContext.class);
+		}
+		public CodebyteContext codebyte(int i) {
+			return getRuleContext(CodebyteContext.class,i);
 		}
 		public SourceContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -131,13 +135,21 @@ public class MainParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(28); 
+			setState(32); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(28);
+				{
+				setState(30);
 				switch (_input.LA(1)) {
+				case POINTER:
+				case LABEL:
+					{
+					setState(28);
+					((SourceContext)_localctx).nb = nobyte();
+					}
+					break;
 				case T__1:
 				case T__2:
 				case T__3:
@@ -151,27 +163,21 @@ public class MainParser extends Parser {
 				case T__11:
 				case T__12:
 					{
-					setState(26);
-					codebyte();
-					}
-					break;
-				case POINTER:
-				case LABEL:
-					{
-					setState(27);
-					nobyte();
+					setState(29);
+					((SourceContext)_localctx).cb = codebyte();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(30); 
+				}
+				setState(34); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__2) | (1L << T__3) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << POINTER) | (1L << LABEL))) != 0) );
-			setState(32);
-			match(EOF);
+			setState(36);
+			eof();
 			}
 		}
 		catch (RecognitionException re) {
@@ -186,30 +192,57 @@ public class MainParser extends Parser {
 	}
 
 	public static class NobyteContext extends ParserRuleContext {
+		public NobyteContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_nobyte; }
+	 
+		public NobyteContext() { }
+		public void copyFrom(NobyteContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class AssignLabelContext extends NobyteContext {
+		public LabelContext labelName;
 		public LabelContext label() {
 			return getRuleContext(LabelContext.class,0);
 		}
+		public AssignLabelContext(NobyteContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MainListener ) ((MainListener)listener).enterAssignLabel(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MainListener ) ((MainListener)listener).exitAssignLabel(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitAssignLabel(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AssignPointerContext extends NobyteContext {
+		public PointerContext pointerName;
+		public Literal_address_4Context literal;
 		public PointerContext pointer() {
 			return getRuleContext(PointerContext.class,0);
 		}
 		public Literal_address_4Context literal_address_4() {
 			return getRuleContext(Literal_address_4Context.class,0);
 		}
-		public NobyteContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_nobyte; }
+		public AssignPointerContext(NobyteContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MainListener ) ((MainListener)listener).enterNobyte(this);
+			if ( listener instanceof MainListener ) ((MainListener)listener).enterAssignPointer(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MainListener ) ((MainListener)listener).exitNobyte(this);
+			if ( listener instanceof MainListener ) ((MainListener)listener).exitAssignPointer(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitNobyte(this);
+			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitAssignPointer(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -218,24 +251,26 @@ public class MainParser extends Parser {
 		NobyteContext _localctx = new NobyteContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_nobyte);
 		try {
-			setState(39);
+			setState(43);
 			switch (_input.LA(1)) {
 			case LABEL:
+				_localctx = new AssignLabelContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(34);
-				label();
+				setState(38);
+				((AssignLabelContext)_localctx).labelName = label();
 				}
 				break;
 			case POINTER:
+				_localctx = new AssignPointerContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(35);
-				pointer();
-				setState(36);
+				setState(39);
+				((AssignPointerContext)_localctx).pointerName = pointer();
+				setState(40);
 				match(T__0);
-				setState(37);
-				literal_address_4();
+				setState(41);
+				((AssignPointerContext)_localctx).literal = literal_address_4();
 				}
 				break;
 			default:
@@ -254,37 +289,101 @@ public class MainParser extends Parser {
 	}
 
 	public static class CodebyteContext extends ParserRuleContext {
-		public TerminalNode LITERAL_BYTE_8() { return getToken(MainParser.LITERAL_BYTE_8, 0); }
-		public Nullary_command_4Context nullary_command_4() {
-			return getRuleContext(Nullary_command_4Context.class,0);
+		public CodebyteContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
 		}
+		@Override public int getRuleIndex() { return RULE_codebyte; }
+	 
+		public CodebyteContext() { }
+		public void copyFrom(CodebyteContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class CodebyteUnary4Context extends CodebyteContext {
+		public Unary_command_4Context command;
+		public Address_4Context address;
 		public Unary_command_4Context unary_command_4() {
 			return getRuleContext(Unary_command_4Context.class,0);
 		}
 		public Address_4Context address_4() {
 			return getRuleContext(Address_4Context.class,0);
 		}
+		public CodebyteUnary4Context(CodebyteContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MainListener ) ((MainListener)listener).enterCodebyteUnary4(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MainListener ) ((MainListener)listener).exitCodebyteUnary4(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitCodebyteUnary4(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CodebyteUnary3Context extends CodebyteContext {
+		public Unary_command_3Context command;
+		public Address_5Context address;
 		public Unary_command_3Context unary_command_3() {
 			return getRuleContext(Unary_command_3Context.class,0);
 		}
 		public Address_5Context address_5() {
 			return getRuleContext(Address_5Context.class,0);
 		}
-		public CodebyteContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_codebyte; }
+		public CodebyteUnary3Context(CodebyteContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MainListener ) ((MainListener)listener).enterCodebyte(this);
+			if ( listener instanceof MainListener ) ((MainListener)listener).enterCodebyteUnary3(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MainListener ) ((MainListener)listener).exitCodebyte(this);
+			if ( listener instanceof MainListener ) ((MainListener)listener).exitCodebyteUnary3(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitCodebyte(this);
+			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitCodebyteUnary3(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CodebyteNullaryContext extends CodebyteContext {
+		public Nullary_commandContext command;
+		public Nullary_commandContext nullary_command() {
+			return getRuleContext(Nullary_commandContext.class,0);
+		}
+		public CodebyteNullaryContext(CodebyteContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MainListener ) ((MainListener)listener).enterCodebyteNullary(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MainListener ) ((MainListener)listener).exitCodebyteNullary(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitCodebyteNullary(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CodebyteLiteralContext extends CodebyteContext {
+		public Literal_byte_8Context literal;
+		public Literal_byte_8Context literal_byte_8() {
+			return getRuleContext(Literal_byte_8Context.class,0);
+		}
+		public CodebyteLiteralContext(CodebyteContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MainListener ) ((MainListener)listener).enterCodebyteLiteral(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MainListener ) ((MainListener)listener).exitCodebyteLiteral(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitCodebyteLiteral(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -293,15 +392,16 @@ public class MainParser extends Parser {
 		CodebyteContext _localctx = new CodebyteContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_codebyte);
 		try {
-			setState(50);
+			setState(54);
 			switch (_input.LA(1)) {
 			case T__1:
+				_localctx = new CodebyteLiteralContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(41);
+				setState(45);
 				match(T__1);
-				setState(42);
-				match(LITERAL_BYTE_8);
+				setState(46);
+				((CodebyteLiteralContext)_localctx).literal = literal_byte_8();
 				}
 				break;
 			case T__2:
@@ -309,32 +409,35 @@ public class MainParser extends Parser {
 			case T__4:
 			case T__5:
 			case T__6:
+				_localctx = new CodebyteNullaryContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(43);
-				nullary_command_4();
+				setState(47);
+				((CodebyteNullaryContext)_localctx).command = nullary_command();
 				}
 				break;
 			case T__7:
 			case T__8:
+				_localctx = new CodebyteUnary4Context(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(44);
-				unary_command_4();
-				setState(45);
-				address_4();
+				setState(48);
+				((CodebyteUnary4Context)_localctx).command = unary_command_4();
+				setState(49);
+				((CodebyteUnary4Context)_localctx).address = address_4();
 				}
 				break;
 			case T__9:
 			case T__10:
 			case T__11:
 			case T__12:
+				_localctx = new CodebyteUnary3Context(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(47);
-				unary_command_3();
-				setState(48);
-				address_5();
+				setState(51);
+				((CodebyteUnary3Context)_localctx).command = unary_command_3();
+				setState(52);
+				((CodebyteUnary3Context)_localctx).address = address_5();
 				}
 				break;
 			default:
@@ -352,71 +455,71 @@ public class MainParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Nullary_command_4Context extends ParserRuleContext {
-		public String value;
-		public Nullary_command_4Context(ParserRuleContext parent, int invokingState) {
+	public static class Nullary_commandContext extends ParserRuleContext {
+		public String code;
+		public Nullary_commandContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_nullary_command_4; }
+		@Override public int getRuleIndex() { return RULE_nullary_command; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MainListener ) ((MainListener)listener).enterNullary_command_4(this);
+			if ( listener instanceof MainListener ) ((MainListener)listener).enterNullary_command(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MainListener ) ((MainListener)listener).exitNullary_command_4(this);
+			if ( listener instanceof MainListener ) ((MainListener)listener).exitNullary_command(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitNullary_command_4(this);
+			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitNullary_command(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final Nullary_command_4Context nullary_command_4() throws RecognitionException {
-		Nullary_command_4Context _localctx = new Nullary_command_4Context(_ctx, getState());
-		enterRule(_localctx, 6, RULE_nullary_command_4);
+	public final Nullary_commandContext nullary_command() throws RecognitionException {
+		Nullary_commandContext _localctx = new Nullary_commandContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_nullary_command);
 		try {
-			setState(62);
+			setState(66);
 			switch (_input.LA(1)) {
 			case T__2:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(52);
+				setState(56);
 				match(T__2);
-				((Nullary_command_4Context)_localctx).value =  "00000000";
+				((Nullary_commandContext)_localctx).code =  "00000000";
 				}
 				break;
 			case T__3:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(54);
+				setState(58);
 				match(T__3);
-				((Nullary_command_4Context)_localctx).value =  "00000001";
+				((Nullary_commandContext)_localctx).code =  "00000001";
 				}
 				break;
 			case T__4:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(56);
+				setState(60);
 				match(T__4);
-				((Nullary_command_4Context)_localctx).value =  "00000011";
+				((Nullary_commandContext)_localctx).code =  "00000011";
 				}
 				break;
 			case T__5:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(58);
+				setState(62);
 				match(T__5);
-				((Nullary_command_4Context)_localctx).value =  "00000111";
+				((Nullary_commandContext)_localctx).code =  "00000111";
 				}
 				break;
 			case T__6:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(60);
+				setState(64);
 				match(T__6);
-				((Nullary_command_4Context)_localctx).value =  "00001000";
+				((Nullary_commandContext)_localctx).code =  "00001000";
 				}
 				break;
 			default:
@@ -435,7 +538,7 @@ public class MainParser extends Parser {
 	}
 
 	public static class Unary_command_4Context extends ParserRuleContext {
-		public String value;
+		public String code;
 		public Unary_command_4Context(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -459,22 +562,22 @@ public class MainParser extends Parser {
 		Unary_command_4Context _localctx = new Unary_command_4Context(_ctx, getState());
 		enterRule(_localctx, 8, RULE_unary_command_4);
 		try {
-			setState(68);
+			setState(72);
 			switch (_input.LA(1)) {
 			case T__7:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(64);
+				setState(68);
 				match(T__7);
-				((Unary_command_4Context)_localctx).value =  "0010";
+				((Unary_command_4Context)_localctx).code =  "0010";
 				}
 				break;
 			case T__8:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(66);
+				setState(70);
 				match(T__8);
-				((Unary_command_4Context)_localctx).value =  "0100";
+				((Unary_command_4Context)_localctx).code =  "0100";
 				}
 				break;
 			default:
@@ -493,7 +596,7 @@ public class MainParser extends Parser {
 	}
 
 	public static class Unary_command_3Context extends ParserRuleContext {
-		public String value;
+		public String code;
 		public Unary_command_3Context(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -517,38 +620,38 @@ public class MainParser extends Parser {
 		Unary_command_3Context _localctx = new Unary_command_3Context(_ctx, getState());
 		enterRule(_localctx, 10, RULE_unary_command_3);
 		try {
-			setState(78);
+			setState(82);
 			switch (_input.LA(1)) {
 			case T__9:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(70);
+				setState(74);
 				match(T__9);
-				((Unary_command_3Context)_localctx).value =  "101";
+				((Unary_command_3Context)_localctx).code =  "101";
 				}
 				break;
 			case T__10:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(72);
+				setState(76);
 				match(T__10);
-				((Unary_command_3Context)_localctx).value =  "101";
+				((Unary_command_3Context)_localctx).code =  "101";
 				}
 				break;
 			case T__11:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(74);
+				setState(78);
 				match(T__11);
-				((Unary_command_3Context)_localctx).value =  "110";
+				((Unary_command_3Context)_localctx).code =  "110";
 				}
 				break;
 			case T__12:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(76);
+				setState(80);
 				match(T__12);
-				((Unary_command_3Context)_localctx).value =  "110";
+				((Unary_command_3Context)_localctx).code =  "110";
 				}
 				break;
 			default:
@@ -567,27 +670,53 @@ public class MainParser extends Parser {
 	}
 
 	public static class Address_4Context extends ParserRuleContext {
-		public Literal_address_4Context literal_address_4() {
-			return getRuleContext(Literal_address_4Context.class,0);
-		}
-		public PointerContext pointer() {
-			return getRuleContext(PointerContext.class,0);
-		}
 		public Address_4Context(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_address_4; }
+	 
+		public Address_4Context() { }
+		public void copyFrom(Address_4Context ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class AddressPointerContext extends Address_4Context {
+		public PointerContext pointerName;
+		public PointerContext pointer() {
+			return getRuleContext(PointerContext.class,0);
+		}
+		public AddressPointerContext(Address_4Context ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MainListener ) ((MainListener)listener).enterAddress_4(this);
+			if ( listener instanceof MainListener ) ((MainListener)listener).enterAddressPointer(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MainListener ) ((MainListener)listener).exitAddress_4(this);
+			if ( listener instanceof MainListener ) ((MainListener)listener).exitAddressPointer(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitAddress_4(this);
+			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitAddressPointer(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AddressLiteral4Context extends Address_4Context {
+		public Literal_address_4Context literal;
+		public Literal_address_4Context literal_address_4() {
+			return getRuleContext(Literal_address_4Context.class,0);
+		}
+		public AddressLiteral4Context(Address_4Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MainListener ) ((MainListener)listener).enterAddressLiteral4(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MainListener ) ((MainListener)listener).exitAddressLiteral4(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitAddressLiteral4(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -596,20 +725,22 @@ public class MainParser extends Parser {
 		Address_4Context _localctx = new Address_4Context(_ctx, getState());
 		enterRule(_localctx, 12, RULE_address_4);
 		try {
-			setState(82);
+			setState(86);
 			switch (_input.LA(1)) {
 			case LITERAL_ADDRESS_4:
+				_localctx = new AddressLiteral4Context(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(80);
-				literal_address_4();
+				setState(84);
+				((AddressLiteral4Context)_localctx).literal = literal_address_4();
 				}
 				break;
 			case POINTER:
+				_localctx = new AddressPointerContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(81);
-				pointer();
+				setState(85);
+				((AddressPointerContext)_localctx).pointerName = pointer();
 				}
 				break;
 			default:
@@ -628,27 +759,53 @@ public class MainParser extends Parser {
 	}
 
 	public static class Address_5Context extends ParserRuleContext {
-		public Literal_address_5Context literal_address_5() {
-			return getRuleContext(Literal_address_5Context.class,0);
-		}
-		public LabelContext label() {
-			return getRuleContext(LabelContext.class,0);
-		}
 		public Address_5Context(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_address_5; }
+	 
+		public Address_5Context() { }
+		public void copyFrom(Address_5Context ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class AddressLiteral5Context extends Address_5Context {
+		public Literal_address_5Context literal;
+		public Literal_address_5Context literal_address_5() {
+			return getRuleContext(Literal_address_5Context.class,0);
+		}
+		public AddressLiteral5Context(Address_5Context ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MainListener ) ((MainListener)listener).enterAddress_5(this);
+			if ( listener instanceof MainListener ) ((MainListener)listener).enterAddressLiteral5(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MainListener ) ((MainListener)listener).exitAddress_5(this);
+			if ( listener instanceof MainListener ) ((MainListener)listener).exitAddressLiteral5(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitAddress_5(this);
+			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitAddressLiteral5(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AddressLabelContext extends Address_5Context {
+		public LabelContext labelName;
+		public LabelContext label() {
+			return getRuleContext(LabelContext.class,0);
+		}
+		public AddressLabelContext(Address_5Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MainListener ) ((MainListener)listener).enterAddressLabel(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MainListener ) ((MainListener)listener).exitAddressLabel(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitAddressLabel(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -657,24 +814,68 @@ public class MainParser extends Parser {
 		Address_5Context _localctx = new Address_5Context(_ctx, getState());
 		enterRule(_localctx, 14, RULE_address_5);
 		try {
-			setState(86);
+			setState(90);
 			switch (_input.LA(1)) {
 			case LITERAL_ADDRESS_5:
+				_localctx = new AddressLiteral5Context(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(84);
-				literal_address_5();
+				setState(88);
+				((AddressLiteral5Context)_localctx).literal = literal_address_5();
 				}
 				break;
 			case LABEL:
+				_localctx = new AddressLabelContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(85);
-				label();
+				setState(89);
+				((AddressLabelContext)_localctx).labelName = label();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class EofContext extends ParserRuleContext {
+		public TerminalNode EOF() { return getToken(MainParser.EOF, 0); }
+		public EofContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_eof; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MainListener ) ((MainListener)listener).enterEof(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MainListener ) ((MainListener)listener).exitEof(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof MainVisitor ) return ((MainVisitor<? extends T>)visitor).visitEof(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final EofContext eof() throws RecognitionException {
+		EofContext _localctx = new EofContext(_ctx, getState());
+		enterRule(_localctx, 16, RULE_eof);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(92);
+			match(EOF);
 			}
 		}
 		catch (RecognitionException re) {
@@ -711,11 +912,11 @@ public class MainParser extends Parser {
 
 	public final PointerContext pointer() throws RecognitionException {
 		PointerContext _localctx = new PointerContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_pointer);
+		enterRule(_localctx, 18, RULE_pointer);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(88);
+			setState(94);
 			match(POINTER);
 			}
 		}
@@ -753,11 +954,11 @@ public class MainParser extends Parser {
 
 	public final LabelContext label() throws RecognitionException {
 		LabelContext _localctx = new LabelContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_label);
+		enterRule(_localctx, 20, RULE_label);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(90);
+			setState(96);
 			match(LABEL);
 			}
 		}
@@ -795,11 +996,11 @@ public class MainParser extends Parser {
 
 	public final Literal_byte_8Context literal_byte_8() throws RecognitionException {
 		Literal_byte_8Context _localctx = new Literal_byte_8Context(_ctx, getState());
-		enterRule(_localctx, 20, RULE_literal_byte_8);
+		enterRule(_localctx, 22, RULE_literal_byte_8);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(92);
+			setState(98);
 			match(LITERAL_BYTE_8);
 			}
 		}
@@ -837,11 +1038,11 @@ public class MainParser extends Parser {
 
 	public final Literal_address_5Context literal_address_5() throws RecognitionException {
 		Literal_address_5Context _localctx = new Literal_address_5Context(_ctx, getState());
-		enterRule(_localctx, 22, RULE_literal_address_5);
+		enterRule(_localctx, 24, RULE_literal_address_5);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(94);
+			setState(100);
 			match(LITERAL_ADDRESS_5);
 			}
 		}
@@ -879,11 +1080,11 @@ public class MainParser extends Parser {
 
 	public final Literal_address_4Context literal_address_4() throws RecognitionException {
 		Literal_address_4Context _localctx = new Literal_address_4Context(_ctx, getState());
-		enterRule(_localctx, 24, RULE_literal_address_4);
+		enterRule(_localctx, 26, RULE_literal_address_4);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(96);
+			setState(102);
 			match(LITERAL_ADDRESS_4);
 			}
 		}
@@ -899,31 +1100,31 @@ public class MainParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\27e\4\2\t\2\4\3\t"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\27k\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
-		"\f\t\f\4\r\t\r\4\16\t\16\3\2\3\2\6\2\37\n\2\r\2\16\2 \3\2\3\2\3\3\3\3"+
-		"\3\3\3\3\3\3\5\3*\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4\65\n\4\3"+
-		"\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5A\n\5\3\6\3\6\3\6\3\6\5\6G\n"+
-		"\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7Q\n\7\3\b\3\b\5\bU\n\b\3\t\3\t\5"+
-		"\tY\n\t\3\n\3\n\3\13\3\13\3\f\3\f\3\r\3\r\3\16\3\16\3\16\2\2\17\2\4\6"+
-		"\b\n\f\16\20\22\24\26\30\32\2\2g\2\36\3\2\2\2\4)\3\2\2\2\6\64\3\2\2\2"+
-		"\b@\3\2\2\2\nF\3\2\2\2\fP\3\2\2\2\16T\3\2\2\2\20X\3\2\2\2\22Z\3\2\2\2"+
-		"\24\\\3\2\2\2\26^\3\2\2\2\30`\3\2\2\2\32b\3\2\2\2\34\37\5\6\4\2\35\37"+
-		"\5\4\3\2\36\34\3\2\2\2\36\35\3\2\2\2\37 \3\2\2\2 \36\3\2\2\2 !\3\2\2\2"+
-		"!\"\3\2\2\2\"#\7\2\2\3#\3\3\2\2\2$*\5\24\13\2%&\5\22\n\2&\'\7\3\2\2\'"+
-		"(\5\32\16\2(*\3\2\2\2)$\3\2\2\2)%\3\2\2\2*\5\3\2\2\2+,\7\4\2\2,\65\7\24"+
-		"\2\2-\65\5\b\5\2./\5\n\6\2/\60\5\16\b\2\60\65\3\2\2\2\61\62\5\f\7\2\62"+
-		"\63\5\20\t\2\63\65\3\2\2\2\64+\3\2\2\2\64-\3\2\2\2\64.\3\2\2\2\64\61\3"+
-		"\2\2\2\65\7\3\2\2\2\66\67\7\5\2\2\67A\b\5\1\289\7\6\2\29A\b\5\1\2:;\7"+
-		"\7\2\2;A\b\5\1\2<=\7\b\2\2=A\b\5\1\2>?\7\t\2\2?A\b\5\1\2@\66\3\2\2\2@"+
-		"8\3\2\2\2@:\3\2\2\2@<\3\2\2\2@>\3\2\2\2A\t\3\2\2\2BC\7\n\2\2CG\b\6\1\2"+
-		"DE\7\13\2\2EG\b\6\1\2FB\3\2\2\2FD\3\2\2\2G\13\3\2\2\2HI\7\f\2\2IQ\b\7"+
-		"\1\2JK\7\r\2\2KQ\b\7\1\2LM\7\16\2\2MQ\b\7\1\2NO\7\17\2\2OQ\b\7\1\2PH\3"+
-		"\2\2\2PJ\3\2\2\2PL\3\2\2\2PN\3\2\2\2Q\r\3\2\2\2RU\5\32\16\2SU\5\22\n\2"+
-		"TR\3\2\2\2TS\3\2\2\2U\17\3\2\2\2VY\5\30\r\2WY\5\24\13\2XV\3\2\2\2XW\3"+
-		"\2\2\2Y\21\3\2\2\2Z[\7\20\2\2[\23\3\2\2\2\\]\7\21\2\2]\25\3\2\2\2^_\7"+
-		"\24\2\2_\27\3\2\2\2`a\7\22\2\2a\31\3\2\2\2bc\7\23\2\2c\33\3\2\2\2\13\36"+
-		" )\64@FPTX";
+		"\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\3\2\3\2\5\2!\n\2\6\2#\n\2\r\2\16\2"+
+		"$\3\2\3\2\3\3\3\3\3\3\3\3\3\3\5\3.\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4"+
+		"\3\4\5\49\n\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5E\n\5\3\6\3\6"+
+		"\3\6\3\6\5\6K\n\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\5\7U\n\7\3\b\3\b\5\b"+
+		"Y\n\b\3\t\3\t\5\t]\n\t\3\n\3\n\3\13\3\13\3\f\3\f\3\r\3\r\3\16\3\16\3\17"+
+		"\3\17\3\17\2\2\20\2\4\6\b\n\f\16\20\22\24\26\30\32\34\2\2l\2\"\3\2\2\2"+
+		"\4-\3\2\2\2\68\3\2\2\2\bD\3\2\2\2\nJ\3\2\2\2\fT\3\2\2\2\16X\3\2\2\2\20"+
+		"\\\3\2\2\2\22^\3\2\2\2\24`\3\2\2\2\26b\3\2\2\2\30d\3\2\2\2\32f\3\2\2\2"+
+		"\34h\3\2\2\2\36!\5\4\3\2\37!\5\6\4\2 \36\3\2\2\2 \37\3\2\2\2!#\3\2\2\2"+
+		"\" \3\2\2\2#$\3\2\2\2$\"\3\2\2\2$%\3\2\2\2%&\3\2\2\2&\'\5\22\n\2\'\3\3"+
+		"\2\2\2(.\5\26\f\2)*\5\24\13\2*+\7\3\2\2+,\5\34\17\2,.\3\2\2\2-(\3\2\2"+
+		"\2-)\3\2\2\2.\5\3\2\2\2/\60\7\4\2\2\609\5\30\r\2\619\5\b\5\2\62\63\5\n"+
+		"\6\2\63\64\5\16\b\2\649\3\2\2\2\65\66\5\f\7\2\66\67\5\20\t\2\679\3\2\2"+
+		"\28/\3\2\2\28\61\3\2\2\28\62\3\2\2\28\65\3\2\2\29\7\3\2\2\2:;\7\5\2\2"+
+		";E\b\5\1\2<=\7\6\2\2=E\b\5\1\2>?\7\7\2\2?E\b\5\1\2@A\7\b\2\2AE\b\5\1\2"+
+		"BC\7\t\2\2CE\b\5\1\2D:\3\2\2\2D<\3\2\2\2D>\3\2\2\2D@\3\2\2\2DB\3\2\2\2"+
+		"E\t\3\2\2\2FG\7\n\2\2GK\b\6\1\2HI\7\13\2\2IK\b\6\1\2JF\3\2\2\2JH\3\2\2"+
+		"\2K\13\3\2\2\2LM\7\f\2\2MU\b\7\1\2NO\7\r\2\2OU\b\7\1\2PQ\7\16\2\2QU\b"+
+		"\7\1\2RS\7\17\2\2SU\b\7\1\2TL\3\2\2\2TN\3\2\2\2TP\3\2\2\2TR\3\2\2\2U\r"+
+		"\3\2\2\2VY\5\34\17\2WY\5\24\13\2XV\3\2\2\2XW\3\2\2\2Y\17\3\2\2\2Z]\5\32"+
+		"\16\2[]\5\26\f\2\\Z\3\2\2\2\\[\3\2\2\2]\21\3\2\2\2^_\7\2\2\3_\23\3\2\2"+
+		"\2`a\7\20\2\2a\25\3\2\2\2bc\7\21\2\2c\27\3\2\2\2de\7\24\2\2e\31\3\2\2"+
+		"\2fg\7\22\2\2g\33\3\2\2\2hi\7\23\2\2i\35\3\2\2\2\13 $-8DJTX\\";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

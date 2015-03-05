@@ -1,7 +1,7 @@
 // Generated from grammer/Main.g4 by ANTLR 4.5
 
     package me.heraclitus.compiler.grammer;
- 
+
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -21,35 +21,87 @@ public interface MainListener extends ParseTreeListener {
 	 */
 	void exitSource(MainParser.SourceContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainParser#nobyte}.
+	 * Enter a parse tree produced by the {@code assignLabel}
+	 * labeled alternative in {@link MainParser#nobyte}.
 	 * @param ctx the parse tree
 	 */
-	void enterNobyte(MainParser.NobyteContext ctx);
+	void enterAssignLabel(MainParser.AssignLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainParser#nobyte}.
+	 * Exit a parse tree produced by the {@code assignLabel}
+	 * labeled alternative in {@link MainParser#nobyte}.
 	 * @param ctx the parse tree
 	 */
-	void exitNobyte(MainParser.NobyteContext ctx);
+	void exitAssignLabel(MainParser.AssignLabelContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainParser#codebyte}.
+	 * Enter a parse tree produced by the {@code assignPointer}
+	 * labeled alternative in {@link MainParser#nobyte}.
 	 * @param ctx the parse tree
 	 */
-	void enterCodebyte(MainParser.CodebyteContext ctx);
+	void enterAssignPointer(MainParser.AssignPointerContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainParser#codebyte}.
+	 * Exit a parse tree produced by the {@code assignPointer}
+	 * labeled alternative in {@link MainParser#nobyte}.
 	 * @param ctx the parse tree
 	 */
-	void exitCodebyte(MainParser.CodebyteContext ctx);
+	void exitAssignPointer(MainParser.AssignPointerContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainParser#nullary_command_4}.
+	 * Enter a parse tree produced by the {@code codebyteLiteral}
+	 * labeled alternative in {@link MainParser#codebyte}.
 	 * @param ctx the parse tree
 	 */
-	void enterNullary_command_4(MainParser.Nullary_command_4Context ctx);
+	void enterCodebyteLiteral(MainParser.CodebyteLiteralContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainParser#nullary_command_4}.
+	 * Exit a parse tree produced by the {@code codebyteLiteral}
+	 * labeled alternative in {@link MainParser#codebyte}.
 	 * @param ctx the parse tree
 	 */
-	void exitNullary_command_4(MainParser.Nullary_command_4Context ctx);
+	void exitCodebyteLiteral(MainParser.CodebyteLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code codebyteNullary}
+	 * labeled alternative in {@link MainParser#codebyte}.
+	 * @param ctx the parse tree
+	 */
+	void enterCodebyteNullary(MainParser.CodebyteNullaryContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code codebyteNullary}
+	 * labeled alternative in {@link MainParser#codebyte}.
+	 * @param ctx the parse tree
+	 */
+	void exitCodebyteNullary(MainParser.CodebyteNullaryContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code codebyteUnary4}
+	 * labeled alternative in {@link MainParser#codebyte}.
+	 * @param ctx the parse tree
+	 */
+	void enterCodebyteUnary4(MainParser.CodebyteUnary4Context ctx);
+	/**
+	 * Exit a parse tree produced by the {@code codebyteUnary4}
+	 * labeled alternative in {@link MainParser#codebyte}.
+	 * @param ctx the parse tree
+	 */
+	void exitCodebyteUnary4(MainParser.CodebyteUnary4Context ctx);
+	/**
+	 * Enter a parse tree produced by the {@code codebyteUnary3}
+	 * labeled alternative in {@link MainParser#codebyte}.
+	 * @param ctx the parse tree
+	 */
+	void enterCodebyteUnary3(MainParser.CodebyteUnary3Context ctx);
+	/**
+	 * Exit a parse tree produced by the {@code codebyteUnary3}
+	 * labeled alternative in {@link MainParser#codebyte}.
+	 * @param ctx the parse tree
+	 */
+	void exitCodebyteUnary3(MainParser.CodebyteUnary3Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainParser#nullary_command}.
+	 * @param ctx the parse tree
+	 */
+	void enterNullary_command(MainParser.Nullary_commandContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainParser#nullary_command}.
+	 * @param ctx the parse tree
+	 */
+	void exitNullary_command(MainParser.Nullary_commandContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MainParser#unary_command_4}.
 	 * @param ctx the parse tree
@@ -71,25 +123,63 @@ public interface MainListener extends ParseTreeListener {
 	 */
 	void exitUnary_command_3(MainParser.Unary_command_3Context ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainParser#address_4}.
+	 * Enter a parse tree produced by the {@code addressLiteral4}
+	 * labeled alternative in {@link MainParser#address_4}.
 	 * @param ctx the parse tree
 	 */
-	void enterAddress_4(MainParser.Address_4Context ctx);
+	void enterAddressLiteral4(MainParser.AddressLiteral4Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainParser#address_4}.
+	 * Exit a parse tree produced by the {@code addressLiteral4}
+	 * labeled alternative in {@link MainParser#address_4}.
 	 * @param ctx the parse tree
 	 */
-	void exitAddress_4(MainParser.Address_4Context ctx);
+	void exitAddressLiteral4(MainParser.AddressLiteral4Context ctx);
 	/**
-	 * Enter a parse tree produced by {@link MainParser#address_5}.
+	 * Enter a parse tree produced by the {@code addressPointer}
+	 * labeled alternative in {@link MainParser#address_4}.
 	 * @param ctx the parse tree
 	 */
-	void enterAddress_5(MainParser.Address_5Context ctx);
+	void enterAddressPointer(MainParser.AddressPointerContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MainParser#address_5}.
+	 * Exit a parse tree produced by the {@code addressPointer}
+	 * labeled alternative in {@link MainParser#address_4}.
 	 * @param ctx the parse tree
 	 */
-	void exitAddress_5(MainParser.Address_5Context ctx);
+	void exitAddressPointer(MainParser.AddressPointerContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code addressLiteral5}
+	 * labeled alternative in {@link MainParser#address_5}.
+	 * @param ctx the parse tree
+	 */
+	void enterAddressLiteral5(MainParser.AddressLiteral5Context ctx);
+	/**
+	 * Exit a parse tree produced by the {@code addressLiteral5}
+	 * labeled alternative in {@link MainParser#address_5}.
+	 * @param ctx the parse tree
+	 */
+	void exitAddressLiteral5(MainParser.AddressLiteral5Context ctx);
+	/**
+	 * Enter a parse tree produced by the {@code addressLabel}
+	 * labeled alternative in {@link MainParser#address_5}.
+	 * @param ctx the parse tree
+	 */
+	void enterAddressLabel(MainParser.AddressLabelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code addressLabel}
+	 * labeled alternative in {@link MainParser#address_5}.
+	 * @param ctx the parse tree
+	 */
+	void exitAddressLabel(MainParser.AddressLabelContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainParser#eof}.
+	 * @param ctx the parse tree
+	 */
+	void enterEof(MainParser.EofContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainParser#eof}.
+	 * @param ctx the parse tree
+	 */
+	void exitEof(MainParser.EofContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MainParser#pointer}.
 	 * @param ctx the parse tree
