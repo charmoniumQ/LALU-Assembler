@@ -30,6 +30,10 @@ public class Prepocessor {
 				tokens.add(new Label(token, 1, 1));
 				continue;
 			}
+			if (token.matches("0b[01]{8}")) {
+				tokens.add(new Literal(token, 1, 1));
+				continue;
+			}
 			throw new UnknownSymbol(token);
 		}
 		return tokens;

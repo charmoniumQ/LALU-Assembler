@@ -22,7 +22,12 @@ public class Compiler {
 
 		while (i < symbols.size()) {
 			Token sy = symbols.get(i);
-			if (sy instanceof Label) {
+			if (sy instanceof Literal) {
+				Literal li = (Literal) sy;
+				output.append(toByte(li.getSource().substring(2)) + " ");
+				bytes += 1;
+				i += 1;
+			} else if (sy instanceof Label) {
 				String addressStr = String.format("%5s", Integer.toBinaryString(getBytes())).replace(' ', '0');
 				labels.put(sy.getSource(), new Address(addressStr, 0, 0, true));
 				i += 1;

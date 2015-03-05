@@ -23,6 +23,24 @@ To use CMD mode, supply the name of a source file as an argument and pipe the st
 - nop (1000)
 
 ##### Features:
+Literal command:
+
+If your implementation has extra non-standard commands, good for you! You can still use the assembler if you encode your special commands as literals. If the assembler comes across an 0b followed immediately by an 8-digit long binary number, it translates that number into binary literally. For example:
+
+This
+
+    add
+    sub
+    0b11110001
+    add
+    sub
+
+Compiles to
+
+    00 01 F1 00 01
+
+since 11110001 base 2 is F1 base 16.
+
 Whitespace ignorant:
 
 This
