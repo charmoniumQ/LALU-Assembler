@@ -4,3 +4,6 @@
 bin/*
 .gradle/*
 build/*
+SASM.iml
+SASM.ipr
+SASM.iws
