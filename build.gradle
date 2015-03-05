@@ -15,6 +15,11 @@ sourceSets {
   }
 }
 
+dependencies {
+  runtime files('lib/antlr-4.5-complete.jar')
+  compile files('lib/antlr-4.5-complete.jar')
+}
+
 jar {
   archiveName = "LALU_Assembler_v${version}.jar"
   manifest {
