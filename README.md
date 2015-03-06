@@ -19,21 +19,33 @@ Writing the * symbol lets you 'name' an address in data memory. A pointer can be
     *idx = 0101
     st *idx // stores A to 0101
 
+##### Bases:
+
+You can enter any number as a binary, decimal, or hexidecimal. All of the following lines do the same thing (set the pointer `*idx` to `0100`). The assembler deduces the number of bits that the number should take up.
+
+    *idx = 0b100 // 0b in front means binary
+    *idx = 0b0100 // any number of leading zeros
+    *idx = 100 // (no modifier means binary)
+    *idx = 0d4 // 0d for decimal
+    *idx = 0x4 // 0x for hexidecimal
+
 ##### Literal command:
 
-If your implementation has extra non-standard commands, good for you! You can still use the assembler if you encode your special commands as literals. If the assembler comes across an 0b followed immediately by an 8-digit long binary number, it translates that number into binary literally. For example:
+If your implementation has extra non-standard commands, good for you! You can still use the assembler if you encode your special commands as literals. When the assmbler comes to a literal number , it translates that number into binary literally. For example:
 
 This
 
     add
     sub
     0b11110001
+    0xAD
+    51
     add
     sub
 
 Compiles to
 
-    00 01 F1 00 01
+    00 01 F1 AD 00 01
 
 since 11110001 base 2 is F1 base 16.
 
@@ -49,16 +61,6 @@ Java-style comments are ignored (both line-comments and block-comments).
     ld 100 // /*
     (notably) this is a comment
     */
-
-##### Bases:
-
-You can enter any number as a binary, decimal, or hexidecimal. All of the following lines do the same thing (set the pointer `*idx` to `0100`). The assembler deduces the number of bits that the number should take up.
-
-    *idx = 0b100 // 0b in front means binary
-    *idx = 0b0100 // any number of leading zeros
-    *idx = 100 // (no modifier means binary)
-    *idx = 0d4 // 0d for decimal
-    *idx = 0x4 // 0x for hexidecimal
 
 ##### Commands:
 - add (0000)
