@@ -8,11 +8,13 @@ options {
     package me.heraclitus.compiler.grammer;
 }
 
-source : ((nb = nobyte | cb = codebyte))+ eof ;
+source : (nobyte | codebyte)+ eof ;
 
-nobyte : labelName = label # assignLabel
-       | pointerName = pointer '=' literal = literal_address_4 # assignPointer
-       ;
+nobyte : assignLabel | assignPointer ;
+
+assignLabel : labelName = label ;
+
+assignPointer : pointerName = pointer '=' literal = literal_address_4 ;
 
 codebyte : '0b' literal = literal_byte_8 # codebyteLiteral
          | command = nullary_command # codebyteNullary
@@ -63,9 +65,9 @@ fragment LETTER : [a-zA-Z] ;
 
 eof : EOF ;
 
-WS : [ \r\t\n]+ -> skip ;
+WHITESPACE : [ \r\t\n]+ -> skip ;
 
-COMMENT : '/*' .*? '*/' -> skip ;
+BLOCK_COMMENT : '/*' .*? '*/' -> skip ;
 
 LINE_COMMENT : '//' .*? ('\r' | '\n') -> skip ;
 
@@ -78,3 +80,5 @@ literal_byte_8 : LITERAL_BYTE_8 ;
 literal_address_5 : LITERAL_ADDRESS_5;
 
 literal_address_4 : LITERAL_ADDRESS_4;
+
+OTHER_CHAR : . ;

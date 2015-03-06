@@ -21,26 +21,32 @@ public interface MainListener extends ParseTreeListener {
 	 */
 	void exitSource(MainParser.SourceContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code assignLabel}
-	 * labeled alternative in {@link MainParser#nobyte}.
+	 * Enter a parse tree produced by {@link MainParser#nobyte}.
+	 * @param ctx the parse tree
+	 */
+	void enterNobyte(MainParser.NobyteContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MainParser#nobyte}.
+	 * @param ctx the parse tree
+	 */
+	void exitNobyte(MainParser.NobyteContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MainParser#assignLabel}.
 	 * @param ctx the parse tree
 	 */
 	void enterAssignLabel(MainParser.AssignLabelContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code assignLabel}
-	 * labeled alternative in {@link MainParser#nobyte}.
+	 * Exit a parse tree produced by {@link MainParser#assignLabel}.
 	 * @param ctx the parse tree
 	 */
 	void exitAssignLabel(MainParser.AssignLabelContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code assignPointer}
-	 * labeled alternative in {@link MainParser#nobyte}.
+	 * Enter a parse tree produced by {@link MainParser#assignPointer}.
 	 * @param ctx the parse tree
 	 */
 	void enterAssignPointer(MainParser.AssignPointerContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code assignPointer}
-	 * labeled alternative in {@link MainParser#nobyte}.
+	 * Exit a parse tree produced by {@link MainParser#assignPointer}.
 	 * @param ctx the parse tree
 	 */
 	void exitAssignPointer(MainParser.AssignPointerContext ctx);

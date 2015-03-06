@@ -9,16 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.heraclitus.compiler.backend.CommandSpec;
-import me.heraclitus.compiler.backend.Compiler;
-import me.heraclitus.compiler.backend.Prepocessor;
-import me.heraclitus.compiler.backend.Token;
-import me.heraclitus.compiler.errors.AddressExpected;
-import me.heraclitus.compiler.errors.AddressFormat;
-import me.heraclitus.compiler.errors.CommandExpected;
-import me.heraclitus.compiler.errors.CommandNotFound;
-import me.heraclitus.compiler.errors.LabelUndefined;
-import me.heraclitus.compiler.errors.UnknownSymbol;
 
 public class CompilerRunner {
 
@@ -38,7 +28,7 @@ public class CompilerRunner {
 		Pair<String, Integer> o;
 		try {
 			o = compile(inputString);
-		} catch (CommandNotFound | AddressExpected | CommandExpected | LabelUndefined | AddressFormat | UnknownSymbol e) {
+		} catch (Exception e) {
 			log.append(e.getMessage() + "\n\n");
 			System.err.println(log.toString());
 			e.printStackTrace();
@@ -70,8 +60,8 @@ public class CompilerRunner {
 		return log.toString();
 	}
 
-	private static Pair<String, Integer> compile(String inputString) throws CommandNotFound, AddressExpected, CommandExpected, AddressFormat, LabelUndefined, UnknownSymbol {
-		Prepocessor pp = new Prepocessor();
+	private static Pair<String, Integer> compile(String inputString) throws Exception {
+		/*Prepocessor pp = new Prepocessor();
 		Compiler co = new Compiler();
 		Map<String, CommandSpec> dict = new HashMap<String, CommandSpec>();
 		dict.put("add", new CommandSpec("0000", false));
@@ -90,5 +80,7 @@ public class CompilerRunner {
 		String outputString = co.compile(tokens);
 		Pair<String, Integer> o = new Pair<String, Integer>(outputString, co.getBytes());
 		return o;
+		*/
+        return new Pair<String, Integer>("", 0);
 	}
 }

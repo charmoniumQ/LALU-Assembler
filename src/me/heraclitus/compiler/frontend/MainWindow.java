@@ -1,9 +1,6 @@
 package me.heraclitus.compiler.frontend;
 
-import java.awt.EventQueue;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.Window.Type;
 import java.io.File;
 
@@ -18,7 +15,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class MainWindow {
 
-	JFrame frame;
+    public static final int TAB_SIZE = 1;
+    JFrame frame;
 	JButton inputBtn, outputBtn;
 	JLabel inputLbl, outputLbl;
 	JFileChooser inputCh, outputCh;
@@ -114,6 +112,8 @@ public class MainWindow {
 		frame.getContentPane().add(outputPane, outputPaneGBC);
 
 		outputTA = new JTextArea(10, 79);
+        outputTA.setFont(new Font("monospaced", Font.PLAIN, 12));
+        outputTA.setTabSize(TAB_SIZE);
 		outputTA.setEditable(false);
 		outputPane.setViewportView(outputTA);
 

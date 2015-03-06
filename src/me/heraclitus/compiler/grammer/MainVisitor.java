@@ -20,15 +20,19 @@ public interface MainVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSource(MainParser.SourceContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code assignLabel}
-	 * labeled alternative in {@link MainParser#nobyte}.
+	 * Visit a parse tree produced by {@link MainParser#nobyte}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNobyte(MainParser.NobyteContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MainParser#assignLabel}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitAssignLabel(MainParser.AssignLabelContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code assignPointer}
-	 * labeled alternative in {@link MainParser#nobyte}.
+	 * Visit a parse tree produced by {@link MainParser#assignPointer}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */

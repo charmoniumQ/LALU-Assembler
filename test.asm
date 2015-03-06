@@ -19,7 +19,8 @@ loada
 /*
 
 weltih
-*/
+fwe*/
+*ptr = 1001
 0b01110101
 jmp @ghi
 
