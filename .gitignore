@@ -7,3 +7,4 @@ build/*
 SASM.iml
 SASM.ipr
 SASM.iws
+src/me/heraclitus/compiler/grammer/*
