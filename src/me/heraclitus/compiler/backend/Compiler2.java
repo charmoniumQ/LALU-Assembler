@@ -8,7 +8,6 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -37,77 +36,119 @@ public class Compiler2 extends MainBaseVisitor<String> {
         return program.toString();
     }
 
-    @Override public String visitAssignLabel(MainParser.AssignLabelContext ctx) {
-        String labelName = ctx.labelName.getText().substring(1);
+    @Override public String visitSetLabel(MainParser.SetLabelContext ctx) {
+        String labelName = ctx.label().word().getText();
         labels.put(labelName, toBase(bytes, 2, 5));
         return ""; // empty string doesn't effect program output
     }
 
-    @Override public String visitAssignPointer(MainParser.AssignPointerContext ctx) {
-        String pointerName = ctx.pointerName.getText().substring(1);
-        String pointerAddr = ctx.literal.getText();
+    @Override public String visitSetPointer(MainParser.SetPointerContext ctx) {
+        String pointerName = ctx.pointer().word().getText();
+        String pointerAddr = visit(ctx.literal4());
         pointers.put(pointerName, pointerAddr);
         return ""; // empty string doesn't effect program output
     }
 
-    @Override public String visitCodebyteLiteral(MainParser.CodebyteLiteralContext ctx) {
-        return ctx.literal_byte_8().getText();
+    @Override public String visitCommand8Execute(MainParser.Command8ExecuteContext ctx) {
+        return visit(ctx.command8Name());
     }
 
-    @Override public String visitCodebyteNullary(MainParser.CodebyteNullaryContext ctx) {
-        String code = ctx.command.code;
-        return code;
+    @Override public String visitCommand8Name(MainParser.Command8NameContext ctx) {
+        return ctx.code;
     }
 
-    @Override public String visitCodebyteUnary4(MainParser.CodebyteUnary4Context ctx) {
-        String code = ctx.command.code;
-        String address = visit(ctx.address);
-        return address + code;
+    @Override public String visitCommand4Execute(MainParser.Command4ExecuteContext ctx) {
+        return visit(ctx.address4()) + visit(ctx.command4Name());
     }
 
-    @Override public String visitCodebyteUnary3(MainParser.CodebyteUnary3Context ctx) {
-        String code = ctx.command.code;
-        String address = visit(ctx.address);
-        return address + code;
+    @Override public String visitCommand4Name(MainParser.Command4NameContext ctx) {
+        return ctx.code;
     }
 
-    @Override public String visitAddressLiteral4(MainParser.AddressLiteral4Context ctx) {
-        return ctx.getText();
+    @Override public String visitCommand3Execute(MainParser.Command3ExecuteContext ctx) {
+        return visit(ctx.address5()) + visit(ctx.command3Name());
     }
 
-    @Override public String visitAddressPointer(MainParser.AddressPointerContext ctx) {
-        String pointerName = ctx.pointerName.getText().substring(1);
+    @Override public String visitCommand3Name(MainParser.Command3NameContext ctx) {
+        return ctx.code;
+    }
+
+    @Override public String visitGetPointer(MainParser.GetPointerContext ctx) {
+        String pointerName = ctx.pointer().word().getText();
         if (pointers.containsKey(pointerName)) {
             String pointerValue = pointers.get(pointerName);
             return pointerValue;
         } else {
-            throw new ParseCancellationException(new UndefinedSymbol("Pointer", ctx));
+            throw new ParseCancellationException(new PostProcessError(
+                    String.format("Pointer \"%s\" is undefined", pointerName),
+                    "Pointer lookup",
+                    ctx));
         }
     }
 
-    @Override public String visitAddressLiteral5(MainParser.AddressLiteral5Context ctx) {
-        return ctx.getText();
-    }
-
-    @Override public String visitAddressLabel(MainParser.AddressLabelContext ctx) {
-        String labelName = ctx.labelName.getText().substring(1);
+    @Override public String visitGetLabel(MainParser.GetLabelContext ctx) {
+        String labelName = ctx.label().word().getText();
         if (labels.containsKey(labelName)) {
             String labelValue = labels.get(labelName);
             return labelValue;
         } else {
-            throw new ParseCancellationException(new UndefinedSymbol("Label", ctx));
+            throw new ParseCancellationException(new PostProcessError(
+                    String.format("Label \"%s\" is undefined", labelName),
+                    "Label lookup",
+                    ctx));
         }
+    }
+
+    @Override public String visitLiteral8(MainParser.Literal8Context ctx) {
+        return interpretLiteral(ctx.literal(), 8);
+    }
+
+    @Override public String visitLiteral4(MainParser.Literal4Context ctx) {
+        return interpretLiteral(ctx.literal(), 4);
+    }
+
+    @Override public String visitLiteral5(MainParser.Literal5Context ctx) {
+        return interpretLiteral(ctx.literal(), 5);
     }
 
     @Override public String visitEof(MainParser.EofContext ctx) {
         return "";
     }
 
+    private String interpretLiteral(MainParser.LiteralContext ctx, int binaryWidth) {
+        int num;
+        int base = 0;
+        String literal = ctx.getText();
+        if (literal.startsWith("0b")) {
+            base = 2;
+        } else if (literal.startsWith("0x")) {
+            base = 16;
+        } else if (literal.startsWith("0d")) {
+            base = 10;
+        } else {
+            base = 2;
+            literal = "0b" + literal;
+        }
+        num = Integer.parseInt(literal.substring(2).toUpperCase(), base);
+
+        String output = "";
+        try {
+            output = toBase(num, 2, binaryWidth);
+        } catch (IllegalArgumentException e) {
+            throw new ParseCancellationException(new PostProcessError(
+                    String.format("The number \"%s\" (base %d) is too big to be a %d-bit binary number", literal, base, binaryWidth),
+                    String.format("%d-bit address", binaryWidth),
+                    ctx));
+        }
+        return output;
+
+    }
+
     public static String toBase(int num, int base, int width) {
         if (num < Math.pow(base, width)) {
             return (String.format(String.format("%%%ds", width), Integer.toString(num, base)).replace(' ', '0'));
         } else {
-            throw new ParseCancellationException(new InternalError(String.format("Error in toBase(%d, %d, %d)", num, base, width)));
+            throw new IllegalArgumentException();
         }
     }
 
@@ -129,8 +170,8 @@ public class Compiler2 extends MainBaseVisitor<String> {
             if (cause instanceof RecognitionException) {
                 RecognitionException re = (RecognitionException) cause;
                 error.append(ErrorMessages.recognitionException(re));
-            } else if (cause instanceof UndefinedSymbol) {
-                UndefinedSymbol us = (UndefinedSymbol) cause;
+            } else if (cause instanceof PostProcessError) {
+                PostProcessError us = (PostProcessError) cause;
                 error.append(ErrorMessages.undefinedSymbol(us));
             } else if (cause instanceof InternalError) {
                 error.append("Internal error\nContact the maintainer.\nPresent your source code, assembler version, and the following message:\n");

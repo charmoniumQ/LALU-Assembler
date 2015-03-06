@@ -1,4 +1,4 @@
-*idx = 1000
+*idx = 0d8
 0b00000000
 add
 0b10000010
@@ -9,7 +9,7 @@ djmp @abc
 0b00100110 // 1e
 jmpn @abc //26
 0b10101101
-jmp    10101
+jmp    0b10101
 0b10000010
 ld *idx
    0b00001000
@@ -22,7 +22,7 @@ st *idx
 
 weltih
 fwe*/
-*ptr = 1001
+*ptr = 11001
 0b01110101
 jmp @ghi
 

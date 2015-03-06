@@ -8,61 +8,105 @@ options {
     package me.heraclitus.compiler.grammer;
 }
 
-source : (nobyte | codebyte)+ eof ;
+// visitSource visits its codebyte children and asks for a string
+// visitSource knows how to format the bytes for Logisim
+source : (codebyte)+ eof ;
 
-nobyte : assignLabel | assignPointer ;
-
-assignLabel : labelName = label ;
-
-assignPointer : pointerName = pointer '=' literal = literal_address_4 ;
-
-codebyte : '0b' literal = literal_byte_8 # codebyteLiteral
-         | command = nullary_command # codebyteNullary
-         | command = unary_command_4 address = address_4 # codebyteUnary4
-         | command = unary_command_3 address = address_5 # codebyteUnary3
+codebyte : literal8
+         | command8Execute
+         | command4Execute
+         | command3Execute
+         | setLabel
+         | setPointer
          ;
 
-nullary_command
+// visitSetLabel sets the label and returns emptystring
+setLabel : label ;
+
+// visitPointer asks visit(literal4) to get an address
+// then it sets the value of a pointer and returns emptystring
+setPointer : pointer '=' literal4 ;
+
+// visitCommand_n_Execute combines the binary code of its children
+command4Execute : command4Name address4 ;
+
+command3Execute : command3Name address5 ;
+
+command8Execute : command8Name ;
+
+// visitCommand_n_Name returns the code shown here
+command8Name
 returns [String code] : 'add' {$code = "00000000";}
-                       | 'sub' {$code = "00000001";}
-                       | 'xchg' {$code = "00000011";}
-                       | 'loada' {$code = "00000111";}
-                       | 'nop' {$code = "00001000";}
-                       ;
+                      | 'sub' {$code = "00000001";}
+                      | 'xchg' {$code = "00000011";}
+                      | 'loada' {$code = "00000111";}
+                      | 'nop' {$code = "00001000";}
+                      ;
 
-unary_command_4
+command4Name
 returns [String code] : 'ld' {$code = "0010";}
-                       | 'st' {$code = "0100";};
+                      | 'st' {$code = "0100";};
 
-unary_command_3
+command3Name
 returns [String code] : 'jmp' {$code = "101";}
-                       | 'djmp' {$code = "101";}
-                       | 'jmpn' {$code = "110";}
-                       | 'djmpn' {$code = "110";}
-                       ;
+                      | 'djmp' {$code = "101";}
+                      | 'jmpn' {$code = "110";}
+                      | 'djmpn' {$code = "110";}
+                      ;
 
-address_4 : literal = literal_address_4 # addressLiteral4
-          | pointerName = pointer # addressPointer
-          ;
+address5 : literal5
+         | getLabel
+         ;
 
-address_5 : literal = literal_address_5 # addressLiteral5
-          | labelName = label # addressLabel
-          ;
+address4 : literal4
+         | getPointer
+         ;
 
-POINTER : '*' LETTER+ ;
+// visitGetPointer looks up pointer in database and returns its value
+// could throw an error if pointer is not previously defined
+getPointer : pointer ;
 
-LABEL : '@' LETTER+ ;
+// visitGetLabel looks up label in database and returns its value
+// could throw an error if label is not previously defined
+getLabel : label ;
 
-LITERAL_ADDRESS_5 : BIT BIT BIT BIT BIT;
+label : '@' word ;
 
-LITERAL_ADDRESS_4 : BIT BIT BIT BIT ;
+pointer : '*' word ;
 
-LITERAL_BYTE_8 : BIT BIT BIT BIT BIT BIT BIT BIT ;
+// visitLiteral_N interprets the literal as an N-bit number
+literal8 : literal ;
 
-fragment BIT : [01] ;
+literal5 : literal ;
 
-fragment LETTER : [a-zA-Z] ;
+literal4 : literal ;
 
+literal : BIN_NUMBER
+        | DEC_NUMBER
+        | HEX_NUMBER
+        ;
+
+word : WORD ;
+
+WORD : LETTER+ ;
+
+BIN_NUMBER : '0' 'b' BIN_DIGIT+
+           | BIN_DIGIT+
+           ;
+
+DEC_NUMBER : '0' 'd' DEC_DIGIT+;
+
+HEX_NUMBER : '0' 'x' HEX_DIGIT+;
+
+fragment BIN_DIGIT : ('0'..'1') ;
+
+fragment DEC_DIGIT : ('0'..'9') ;
+
+fragment HEX_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F') ;
+
+fragment LETTER : ('a'..'z'|'A'..'Z') ;
+
+// visitEof has to return empty string so it will work with the visitSource
 eof : EOF ;
 
 WHITESPACE : [ \r\t\n]+ -> skip ;
@@ -70,15 +114,5 @@ WHITESPACE : [ \r\t\n]+ -> skip ;
 BLOCK_COMMENT : '/*' .*? '*/' -> skip ;
 
 LINE_COMMENT : '//' .*? ('\r' | '\n') -> skip ;
-
-pointer : POINTER ;
-
-label : LABEL ;
-
-literal_byte_8 : LITERAL_BYTE_8 ;
-
-literal_address_5 : LITERAL_ADDRESS_5;
-
-literal_address_4 : LITERAL_ADDRESS_4;
 
 OTHER_CHAR : . ;

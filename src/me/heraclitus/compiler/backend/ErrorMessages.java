@@ -34,13 +34,11 @@ public class ErrorMessages {
         return prettyFormat(message, brokenRule, offendingToken, errorLine);
     }
 
-    public static String undefinedSymbol(UndefinedSymbol e) {
+    public static String undefinedSymbol(PostProcessError e) {
         ParserRuleContext ctx = e.getCtx();
         Token offendingToken = ctx.getStart();
-        String type = e.getType(); // type as in "Label" or "Pointer"
-        String name = offendingToken.getText();
-        String message = String.format("%s \"%s\" is undefined", type, offendingToken.getText());
-        String brokenRule = String.format("%s lookup", type);
+        String message = e.getMessage();
+        String brokenRule = String.format(e.getRule());
 
         // In this case, I don't really have the source code line that failed
         // So put the token text that failed in the position it would be if it was in the source
