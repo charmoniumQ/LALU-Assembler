@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'idea'
 
-version = '3.0'
+version = '3.1'
 mainClassName = 'me.heraclitus.compiler.frontend.Runner'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
