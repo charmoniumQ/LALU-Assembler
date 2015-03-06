@@ -50,6 +50,16 @@ Java-style comments are ignored (both line-comments and block-comments).
     (notably) this is a comment
     */
 
+##### Bases:
+
+You can enter any number as a binary, decimal, or hexidecimal. All of the following lines do the same thing (set the pointer `*idx` to `0100`). The assembler deduces the number of bits that the number should take up.
+
+    *idx = 0b100 // 0b in front means binary
+    *idx = 0b0100 // any number of leading zeros
+    *idx = 100 // (no modifier means binary)
+    *idx = 0d4 // 0d for decimal
+    *idx = 0x4 // 0x for hexidecimal
+
 ##### Commands:
 - add (0000)
 - sub (0001)
@@ -79,6 +89,10 @@ is equivalent to this
     sub
     ld 1000
     st 1000
+
+##### Errors:
+
+Error messages look really nice with line number and the error line with the offending token underlined. Hopefully you won't have to see them. :)
 
 ##### CMD mode:
 
