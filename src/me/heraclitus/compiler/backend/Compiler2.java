@@ -1,5 +1,6 @@
 package me.heraclitus.compiler.backend;
 
+import me.heraclitus.compiler.Utils;
 import me.heraclitus.compiler.grammer.MainBaseVisitor;
 import me.heraclitus.compiler.grammer.MainLexer;
 import me.heraclitus.compiler.grammer.MainParser;
@@ -12,53 +13,12 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class Compiler2 extends MainBaseVisitor<String> {
-    public static void main(String[] args) throws IOException {
-        Compiler2 test = new Compiler2();
-        test.run("");
-    }
 
-    public void run(String inputString) throws IOException {
-        ANTLRInputStream input = new ANTLRFileStream("test.asm");
-        //ANTLRInputStream input = new ANTLRInputStream(inputString);
-        MainLexer lexer = new MainLexer(input);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        MainParser parser = new MainParser(tokens);
-        parser.removeErrorListeners();
-        parser.setErrorHandler(new BailErrorStrategy());
-        ParseTree tree = null;
-        try {
-            tree = parser.source();
-            output = this.visit(tree);
-        } catch (ParseCancellationException pce) {
-            Throwable cause = pce.getCause();
-            if (cause instanceof RecognitionException) {
-                RecognitionException re = (RecognitionException) cause;
-                System.err.println(ErrorMessages.recognitionException(re));
-            } else if (cause instanceof UndefinedSymbol) {
-                UndefinedSymbol us = (UndefinedSymbol) cause;
-                System.err.println(ErrorMessages.undefinedSymbol(us));
-            } else if (cause instanceof InternalError) {
-                System.err.println("Contact the maintainer.\nPresent your source code, assembler version, and the following message:");
-                System.err.println(cause.getMessage());
-            } else {
-                System.err.println("Contact the maintainer.\nPresent your source code, assembler version, and the following message:");
-                pce.printStackTrace();
-                cause.printStackTrace();
-            }
-
-        } finally {
-            // TODO: this
-        }
-    }
-
-    public String getOutput() {
-        return output;
-    }
-
-    public String getError() {
-        return error;
-    }
-
+    /*
+    This function calls `visit` on its children.
+    Eventually the `visit` call bubbles down to a token that can be translated to a String.
+    Then it returns that String which bubbles back up to larger tokens, which know how to assemble Strings
+     */
     @Override public String visitSource(MainParser.SourceContext ctx) {
         StringBuilder program = new StringBuilder("v2.0 raw\n");
 
@@ -72,8 +32,6 @@ public class Compiler2 extends MainBaseVisitor<String> {
                 } else {
                     throw new ParseCancellationException(new InternalError(String.format("Invalid byte produced: %s", currentByte)));
                 }
-            } else {
-
             }
         }
         return program.toString();
@@ -153,9 +111,46 @@ public class Compiler2 extends MainBaseVisitor<String> {
         }
     }
 
+    public String run(String inputString) throws Throwable {
+        ANTLRInputStream input = new ANTLRInputStream(inputString);
+        MainLexer lexer = new MainLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        MainParser parser = new MainParser(tokens);
+        parser.removeErrorListeners();
+        parser.setErrorHandler(new BailErrorStrategy());
+        ParseTree tree = null;
+        String output = "";
+        StringBuilder error = new StringBuilder();
+        try {
+            tree = parser.source();
+            output = this.visit(tree);
+        } catch (ParseCancellationException pce) {
+            Throwable cause = pce.getCause();
+            if (cause instanceof RecognitionException) {
+                RecognitionException re = (RecognitionException) cause;
+                error.append(ErrorMessages.recognitionException(re));
+            } else if (cause instanceof UndefinedSymbol) {
+                UndefinedSymbol us = (UndefinedSymbol) cause;
+                error.append(ErrorMessages.undefinedSymbol(us));
+            } else if (cause instanceof InternalError) {
+                error.append("Internal error\nContact the maintainer.\nPresent your source code, assembler version, and the following message:\n");
+                error.append(cause.getMessage() + "\n");
+                // no stack trace necessary, since the location of an error can be found by the message text
+            } else {
+                error.append( "Unknown error\nContact the maintainer.\nPresent your source code, assembler version, and the following message:\n");
+                error.append(Utils.stackTraceString(pce));
+                error.append(Utils.stackTraceString(cause));
+            }
+            Throwable monkeyPoop = new Throwable(error.toString());
+            throw monkeyPoop;
+        }
+        return output;
+    }
+
+    public int getBytes() { return bytes; }
+
     Map<String, String> labels = new HashMap<String, String>();
     Map<String, String> pointers = new HashMap<String, String>();
     int bytes = 0;
     String output = "";
-    String error = "";
 }

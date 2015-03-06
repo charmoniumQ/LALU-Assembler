@@ -1,6 +1,5 @@
 package me.heraclitus.compiler.frontend;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -9,30 +8,12 @@ import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class MainLogic extends MainWindow {
+public class LogicWindow extends BaseWindow {
 	private String inputLastLocation = "inputLastLocation",
 			outputLastLocation = "outputLastLocation";
 	private Preferences prefs;
 
-	public static void main(String[] args) {
-		if (args.length != 1) {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						MainLogic window = new MainLogic();
-						window.frame.setVisible(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		} else {
-			File input = new File(args[0]);
-			CompilerRunner.run(input, null);
-		}
-	}
-
-	public MainLogic() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public LogicWindow() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		super();
 		initializeLogic();
 	}

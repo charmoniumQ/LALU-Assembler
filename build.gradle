@@ -2,9 +2,8 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'idea'
 
-version = '2.4'
-//mainClassName = 'me.heraclitus.compiler.frontend.MainLogic'
-mainClassName = 'me.heraclitus.compiler.backend.Compiler2'
+version = '3.0'
+mainClassName = 'me.heraclitus.compiler.frontend.Runner'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
@@ -24,6 +23,9 @@ dependencies {
 jar {
   archiveName = "LALU_Assembler_v${version}.jar"
   manifest {
-	attributes 'Main-Class': mainClassName
+    attributes "Main-Class": "$mainClassName"
+  }
+  from {
+    configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
   }
 }

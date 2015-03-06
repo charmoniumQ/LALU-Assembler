@@ -15,7 +15,7 @@ public class ErrorMessages {
         String message = "Unknown";
 
         if (brokenRule.equals("source") || brokenRule.equals("eof")) {
-            message = String.format("Unable to interpret \"%s\"", bad);
+            message = String.format("Unable to interpret \"%s\" as a command", bad);
         } else if (brokenRule.equals("address_5")) {
             message = String.format("Expected 5-bit address in place of \"%s\" for command \"%s\"", bad, e.getCtx().getParent().getText());
         } else if (brokenRule.equals("address_4")) {
@@ -25,8 +25,7 @@ public class ErrorMessages {
         } else {
             // unknown parser error
             String next = e.getExpectedTokens().toString(e.getRecognizer().getVocabulary());
-            message = String.format("Contact the maintainer.\n" +
-                    "Present your source code, assembler version, and the following message:");
+            message = String.format("No error message for this yet\nContact the maintainer and present your source code, assembler version, and the following message:");
         }
 
         String errorLine = ((CommonTokenStream) e.getRecognizer().getInputStream())
@@ -40,14 +39,14 @@ public class ErrorMessages {
         Token offendingToken = ctx.getStart();
         String type = e.getType(); // type as in "Label" or "Pointer"
         String name = offendingToken.getText();
-        String message = String.format("%s \"name\" is undefined", type);
+        String message = String.format("%s \"%s\" is undefined", type, offendingToken.getText());
         String brokenRule = String.format("%s lookup", type);
 
         // In this case, I don't really have the source code line that failed
         // So put the token text that failed in the position it would be if it was in the source
         StringBuilder partialLine = new StringBuilder();
         for (int i = 0; i < offendingToken.getCharPositionInLine(); ++i) {
-            partialLine.append(" ");
+            partialLine.append(".");
         }
         partialLine.append(offendingToken.getText());
 
@@ -71,7 +70,7 @@ public class ErrorMessages {
             }
         }
 
-        String generalMessage = "Error: %s\nRule: %s\nFile: %s, Line: %d, Col: %d\nSource:\n%s\n%s";
+        String generalMessage = "Error: %s\nRule: %s\nFile: %s, Line: %d, Col: %d\nSource:\n%s\n%s\n";
         return String.format(generalMessage, message, brokenRule, fileName, line, col, errorLine, underline);
     }
 }

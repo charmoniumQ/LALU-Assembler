@@ -1,5 +1,9 @@
 package me.heraclitus.compiler.frontend;
 
+import me.heraclitus.compiler.Utils;
+import me.heraclitus.compiler.backend.Compiler2;
+import org.antlr.v4.runtime.ParserRuleContext;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,79 +12,85 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 
 public class CompilerRunner {
+    public static void run() {
+        StringBuilder errorLog = new StringBuilder();
+        StringBuilder inputStringBuilder = new StringBuilder();
+        Scanner inputScanner = new Scanner(System.in);
+        while (inputScanner.hasNextLine()) {
+            inputStringBuilder.append(inputScanner.nextLine());
+            inputStringBuilder.append("\n");
+        }
+        errorLog.append("Read from stdin\n");
+
+        Compiler2 c2 = new Compiler2();
+        boolean compileSuccess = false;
+        String output = "";
+        try {
+            output = c2.run(inputStringBuilder.toString());
+            compileSuccess = true;
+        } catch (Throwable e) {
+            // if Compiler2.run throws a throwable, all of the useful information is in the e.getMessage(), because I wrote it that way.
+            errorLog.append("Unable to compile source\n");
+            errorLog.append(e.getMessage());
+        }
+        if (compileSuccess) {
+            errorLog.append("Compiled source\n");
+
+            System.out.println(output);
+            errorLog.append("Wrote to stdout\n");
+            errorLog.append(String.format("Compiled %d bytes\n", c2.getBytes()));
+        }
+        System.err.println(errorLog.toString());
+    }
 
 	public static String run(File inputFile, File outputFile) {
-		StringBuilder log = new StringBuilder();
-		String inputString;
+		StringBuilder errorLog = new StringBuilder();
+		String inputString = "";
+        boolean readSuccess = false;
 		try {
 			inputString = new String(Files.readAllBytes(inputFile.toPath()));
+            readSuccess = true;
 		} catch (IOException e) {
-			log.append("Unable to read file (" + inputFile.getName() + "): " + e.getMessage() + "\n\n");
-			System.err.println(log.toString());
-			e.printStackTrace();
-			return log.toString();
+			errorLog.append("Unable to read file \"" + inputFile.getName() + "\"\n");
+            errorLog.append(Utils.stackTraceString(e));
 		}
-		log.append("Read from " + inputFile.getName() + "\n");
+        if (readSuccess) {
+            errorLog.append("Read from \"" + inputFile.getName() + "\"\n");
 
-		Pair<String, Integer> o;
-		try {
-			o = compile(inputString);
-		} catch (Exception e) {
-			log.append(e.getMessage() + "\n\n");
-			System.err.println(log.toString());
-			e.printStackTrace();
-			return log.toString();
-		}
-		String outputString = o.getFirst();
-		int bytes = o.getSecond();
-
-		if (outputFile != null) {
-			PrintStream outputWriter;
-			try {
-				outputWriter = new PrintStream(outputFile);
-			} catch (FileNotFoundException e) {
-				log.append("Unable to write file (" + outputFile.getName() + "): " + e.getMessage() + "\n\n");
-				System.err.println(log.toString());
-				e.printStackTrace();
-				return log.toString();
-			}
-			log.append("Wrote to " + outputFile.getName() + "\n");
-			outputWriter.print(outputString);
-			outputWriter.close();
-		} else {
-			log.append("Wrote to stdout\n");
-			System.out.print(outputString);
-		}
-
-		log.append("Successfully compiled " + bytes + " bytes\n");
-		System.err.println(log.toString());
-		return log.toString();
-	}
-
-	private static Pair<String, Integer> compile(String inputString) throws Exception {
-		/*Prepocessor pp = new Prepocessor();
-		Compiler co = new Compiler();
-		Map<String, CommandSpec> dict = new HashMap<String, CommandSpec>();
-		dict.put("add", new CommandSpec("0000", false));
-		dict.put("sub", new CommandSpec("0001", false));
-		dict.put("ld", new CommandSpec("0010", true));
-		dict.put("xchg", new CommandSpec("0011", false));
-		dict.put("st", new CommandSpec("0100", true));
-		dict.put("jmp", new CommandSpec("101", true, true));
-		dict.put("jmpn", new CommandSpec("110", true, true));
-		dict.put("djmp", new CommandSpec("101", true, true)); // alias for jmp
-		dict.put("djmpn", new CommandSpec("110", true, true)); // alias for jmp
-		dict.put("loada", new CommandSpec("0111", false));
-		dict.put("nop", new CommandSpec("1000", false));
-		co.setCommandSet(dict);
-		List<Token> tokens = pp.preprocess(inputString);
-		String outputString = co.compile(tokens);
-		Pair<String, Integer> o = new Pair<String, Integer>(outputString, co.getBytes());
-		return o;
-		*/
-        return new Pair<String, Integer>("", 0);
+            Compiler2 c2 = new Compiler2();
+            boolean compileSuccess = false;
+            String output = "";
+            try {
+                output = c2.run(inputString);
+                compileSuccess = true;
+            } catch (Throwable e) {
+                // if Compiler2.run throws a throwable, all of the useful information is in the e.getMessage(), because I wrote it that way.
+                errorLog.append("Unable to compile source\n");
+                errorLog.append(e.getMessage());
+            }
+            if (compileSuccess) {
+                errorLog.append("Compiled source\n");
+                boolean writeSuccess = false;
+                try {
+                    PrintStream outputWriter = new PrintStream(outputFile);
+                    outputWriter.print(output);
+                    outputWriter.close();
+                    writeSuccess = true;
+                } catch (FileNotFoundException e) {
+                    errorLog.append("Unable to write file \"" + outputFile.getName() + "\"\n");
+                    errorLog.append(Utils.stackTraceString(e));
+                }
+                if (writeSuccess) {
+                    errorLog.append("Wrote to \"" + outputFile.getName() + "\"\n");
+                    errorLog.append(String.format("Compiled %d bytes\n", c2.getBytes()));
+                }
+            }
+        }
+		System.err.println(errorLog.toString());
+		return errorLog.toString();
 	}
 }

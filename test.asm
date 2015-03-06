@@ -1,7 +1,8 @@
+*idx = 1000
 0b00000000
 add
 0b10000010
-ld 1000
+ld *idx
 @abc
 0b00100101
 djmp @abc
@@ -10,12 +11,13 @@ jmpn @abc //26
 0b10101101
 jmp    10101
 0b10000010
-ld 1000
+ld *idx
    0b00001000
    nop
 @ghi /* lwthie */
 0b00000111
 loada
+st *idx
 /*
 
 weltih

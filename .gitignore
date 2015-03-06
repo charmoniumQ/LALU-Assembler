@@ -4,7 +4,8 @@
 bin/*
 .gradle/*
 build/*
-SASM.iml
-SASM.ipr
-SASM.iws
+*.iml
+*.ipr
+*.iws
 src/me/heraclitus/compiler/grammer/*
+out/*
