@@ -1,4 +1,5 @@
-*idx = 0d8
+*idx = 0d5
+add -b 19
 0b00000000
 add
 0b10000010
@@ -22,7 +23,7 @@ st *idx
 
 weltih
 fwe*/
-*ptr = 11001
+*ptr = 1001
 0b01110101
 jmp @ghi
 

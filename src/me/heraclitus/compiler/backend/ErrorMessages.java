@@ -14,14 +14,10 @@ public class ErrorMessages {
         String brokenRule = stack.size() > 0 ? stack.get(0): "Unknown";
         String message = "Unknown";
 
-        if (brokenRule.equals("source") || brokenRule.equals("eof")) {
+        if (brokenRule.equals("source") || brokenRule.equals("codebyte") || brokenRule.equals("eof")) {
             message = String.format("Unable to interpret \"%s\" as a command", bad);
-        } else if (brokenRule.equals("address_5")) {
-            message = String.format("Expected 5-bit address in place of \"%s\" for command \"%s\"", bad, e.getCtx().getParent().getText());
-        } else if (brokenRule.equals("address_4")) {
-            message = String.format("Expected 4-bit address in place of \"%s\" for command \"%s\"", bad, e.getCtx().getParent().getText());
-        } else if (brokenRule.equals("assignPointer")) {
-            message = "Expected *<pointer_name> = <4-bit address>";
+        } else if (brokenRule.equals("literal")) {
+            message = String.format("Invalid literal \"%s\". Must be binary, decimal, or hexidecimal", bad);
         } else {
             // unknown parser error
             String next = e.getExpectedTokens().toString(e.getRecognizer().getVocabulary());
