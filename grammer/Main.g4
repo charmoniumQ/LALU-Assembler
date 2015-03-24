@@ -36,11 +36,13 @@ command8Execute : command8Name ;
 
 // visitCommand_n_Name returns the code shown here
 command8Name
-returns [String code] : 'add' {$code = "00000000";}
-                      | 'sub' {$code = "00000001";}
-                      | 'xchg' {$code = "00000011";}
+returns [String code] : 'add'   {$code = "00000000";}
+                      | 'sub'   {$code = "00000001";}
+                      | 'xchg'  {$code = "00000011";}
                       | 'loada' {$code = "00000111";}
-                      | 'nop' {$code = "00001000";}
+                      | 'storea'{$code = "00001001";}
+                      | 'incr ' {$code = "00001010";}
+                      | 'nop'   {$code = "00001000";}
                       ;
 
 command4Name
@@ -48,9 +50,9 @@ returns [String code] : 'ld' {$code = "0010";}
                       | 'st' {$code = "0100";};
 
 command3Name
-returns [String code] : 'jmp' {$code = "101";}
-                      | 'djmp' {$code = "101";}
-                      | 'jmpn' {$code = "110";}
+returns [String code] : 'jmp'   {$code = "101";}
+                      | 'djmp'  {$code = "101";}
+                      | 'jmpn'  {$code = "110";}
                       | 'djmpn' {$code = "110";}
                       ;
 
