@@ -41,7 +41,7 @@ returns [String code] : 'add'   {$code = "00000000";}
                       | 'xchg'  {$code = "00000011";}
                       | 'loada' {$code = "00000111";}
                       | 'storea'{$code = "00001001";}
-                      | 'incr ' {$code = "00001010";}
+                      | 'incr' {$code = "00001010";}
                       | 'nop'   {$code = "00001000";}
                       ;
 
