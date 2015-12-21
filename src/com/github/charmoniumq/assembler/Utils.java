@@ -1,4 +1,4 @@
-package me.heraclitus.compiler;
+package com.github.charmoniumq.assembler;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -6,7 +6,8 @@ import java.io.StringWriter;
 /**
  * Created by sam on 3/6/15.
  */
-public class Utils {
+public class
+        Utils {
     public static String stackTraceString(Throwable e) {
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw));

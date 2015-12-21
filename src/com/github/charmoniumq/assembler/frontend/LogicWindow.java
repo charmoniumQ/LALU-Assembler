@@ -1,4 +1,4 @@
-package me.heraclitus.compiler.frontend;
+package com.github.charmoniumq.assembler.frontend;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

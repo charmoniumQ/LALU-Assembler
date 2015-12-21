@@ -1,4 +1,4 @@
-package me.heraclitus.compiler.backend;
+package com.github.charmoniumq.assembler.backend;
 
 import me.heraclitus.compiler.Utils;
 import me.heraclitus.compiler.grammer.MainBaseVisitor;
@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import java.util.Map;
 import java.util.HashMap;
 
-public class Compiler2 extends MainBaseVisitor<String> {
+public class Compiler extends MainBaseVisitor<String> {
 
     /*
     This function calls `visit` on its children.
@@ -29,7 +29,7 @@ public class Compiler2 extends MainBaseVisitor<String> {
                     program.append(toBase(value, 16, 2) + " ");
                     bytes++; // running count of bytes is important for visitAssignLabel
                 } else {
-                    throw new ParseCancellationException(new InternalError(String.format("Invalid byte produced: %s", currentByte)));
+                    throw new ParseCancellationException(new com.github.charmoniumq.assembler.backend.InternalError(String.format("Invalid byte produced: %s", currentByte)));
                 }
             }
         }
@@ -169,11 +169,11 @@ public class Compiler2 extends MainBaseVisitor<String> {
             Throwable cause = pce.getCause();
             if (cause instanceof RecognitionException) {
                 RecognitionException re = (RecognitionException) cause;
-                error.append(ErrorMessages.recognitionException(re));
+                error.append(com.github.charmoniumq.assembler.backend.ErrorMessages.recognitionException(re));
             } else if (cause instanceof PostProcessError) {
                 PostProcessError us = (PostProcessError) cause;
-                error.append(ErrorMessages.undefinedSymbol(us));
-            } else if (cause instanceof InternalError) {
+                error.append(com.github.charmoniumq.assembler.backend.ErrorMessages.undefinedSymbol(us));
+            } else if (cause instanceof com.github.charmoniumq.assembler.backend.InternalError) {
                 error.append("Internal error\nContact the maintainer.\nPresent your source code, assembler version, and the following message:\n");
                 error.append(cause.getMessage() + "\n");
                 // no stack trace necessary, since the location of an error can be found by the message text

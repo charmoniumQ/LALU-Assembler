@@ -1,4 +1,4 @@
-package me.heraclitus.compiler.backend;
+package com.github.charmoniumq.assembler.backend;
 
 /**
  * Created by sam on 3/5/15.

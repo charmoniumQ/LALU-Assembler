@@ -1,4 +1,4 @@
-package me.heraclitus.compiler.backend;
+package com.github.charmoniumq.assembler.backend;
 
 import org.antlr.v4.runtime.*;
 
@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ErrorMessages {
     public static String recognitionException(RecognitionException e) {
-        Token offendingToken = e.getOffendingToken();
+        me.heraclitus.compiler.backend.Token offendingToken = e.getOffendingToken();
         String bad = offendingToken.getText();
         Parser parser = (Parser) e.getRecognizer();
         // The following gets the 'hierarchy' of rules with the 0th element being the failed rule
@@ -32,7 +32,7 @@ public class ErrorMessages {
 
     public static String undefinedSymbol(PostProcessError e) {
         ParserRuleContext ctx = e.getCtx();
-        Token offendingToken = ctx.getStart();
+        me.heraclitus.compiler.backend.Token offendingToken = ctx.getStart();
         String message = e.getMessage();
         String brokenRule = String.format(e.getRule());
 
@@ -47,7 +47,7 @@ public class ErrorMessages {
         return prettyFormat(message, brokenRule, ctx.getStart(), partialLine.toString());
     }
 
-    private static String prettyFormat(String message, String brokenRule, Token offendingToken, String errorLine) {
+    private static String prettyFormat(String message, String brokenRule, me.heraclitus.compiler.backend.Token offendingToken, String errorLine) {
         int line = offendingToken.getLine();
         int col = offendingToken.getCharPositionInLine();
         String fileName = offendingToken.getInputStream().getSourceName();

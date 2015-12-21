@@ -1,4 +1,4 @@
-package me.heraclitus.compiler.frontend;
+package com.github.charmoniumq.assembler.frontend;
 
 import java.awt.*;
 
@@ -21,7 +21,7 @@ public class Runner {
                 }
             });
         } else {
-            CompilerRunner.run();
+            com.github.charmoniumq.assembler.frontend.CompilerRunner.run();
         }
     }
 }

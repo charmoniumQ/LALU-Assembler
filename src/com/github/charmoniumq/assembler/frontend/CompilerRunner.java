@@ -1,17 +1,13 @@
-package me.heraclitus.compiler.frontend;
+package com.github.charmoniumq.assembler.frontend;
 
 import me.heraclitus.compiler.Utils;
-import me.heraclitus.compiler.backend.Compiler2;
-import org.antlr.v4.runtime.ParserRuleContext;
+import com.github.charmoniumq.assembler.backend.Compiler;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 
@@ -26,14 +22,14 @@ public class CompilerRunner {
         }
         errorLog.append("Read from stdin\n");
 
-        Compiler2 c2 = new Compiler2();
+        Compiler c2 = new Compiler();
         boolean compileSuccess = false;
         String output = "";
         try {
             output = c2.run(inputStringBuilder.toString());
             compileSuccess = true;
         } catch (Throwable e) {
-            // if Compiler2.run throws a throwable, all of the useful information is in the e.getMessage(), because I wrote it that way.
+            // if Compiler.run throws a throwable, all of the useful information is in the e.getMessage(), because I wrote it that way.
             errorLog.append("Unable to compile source\n");
             errorLog.append(e.getMessage());
         }
@@ -61,14 +57,14 @@ public class CompilerRunner {
         if (readSuccess) {
             errorLog.append("Read from \"" + inputFile.getName() + "\"\n");
 
-            Compiler2 c2 = new Compiler2();
+            Compiler c2 = new Compiler();
             boolean compileSuccess = false;
             String output = "";
             try {
                 output = c2.run(inputString);
                 compileSuccess = true;
             } catch (Throwable e) {
-                // if Compiler2.run throws a throwable, all of the useful information is in the e.getMessage(), because I wrote it that way.
+                // if Compiler.run throws a throwable, all of the useful information is in the e.getMessage(), because I wrote it that way.
                 errorLog.append("Unable to compile source\n");
                 errorLog.append(e.getMessage());
             }
