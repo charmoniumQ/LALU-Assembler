@@ -5,7 +5,7 @@ options {
 }
 
 @header {
-    package me.heraclitus.compiler.grammer;
+    package com.github.charmoniumq.assembler.grammar;
 }
 
 // visitSource visits its codebyte children and asks for a string
@@ -41,13 +41,14 @@ returns [String code] : 'add'   {$code = "00000000";}
                       | 'xchg'  {$code = "00000011";}
                       | 'loada' {$code = "00000111";}
                       | 'storea'{$code = "00001001";}
-                      | 'incr' {$code = "00001010";}
+                      | 'incr'  {$code = "00001010";}
                       | 'nop'   {$code = "00001000";}
                       ;
 
 command4Name
 returns [String code] : 'ld' {$code = "0010";}
-                      | 'st' {$code = "0100";};
+                      | 'st' {$code = "0100";}
+                      ;
 
 command3Name
 returns [String code] : 'jmp'   {$code = "101";}

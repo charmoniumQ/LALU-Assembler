@@ -1,8 +1,5 @@
 package com.github.charmoniumq.assembler.frontend;
 
-import me.heraclitus.compiler.Utils;
-import com.github.charmoniumq.assembler.backend.Compiler;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,6 +7,8 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.util.Scanner;
 
+import com.github.charmoniumq.assembler.Utils;
+import com.github.charmoniumq.assembler.backend.Compiler;
 
 public class CompilerRunner {
     public static void run() {

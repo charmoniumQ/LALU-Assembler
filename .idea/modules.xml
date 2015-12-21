@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$USER_HOME$/box/dev/LALU-Assembler3/LALU-Assembler.iml" filepath="$USER_HOME$/box/dev/LALU-Assembler3/LALU-Assembler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LALU-Assembler3.iml" filepath="$PROJECT_DIR$/LALU-Assembler3.iml" />
+    </modules>
+  </component>
+</project>
